@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title>Evaluation of the efficacy of popular recurrent neural network architectures in time-series predictions</title>
+<title>CS:5980:002 Term Project</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -28,27 +28,26 @@ body, html {
 
     <!-- Links (sit on top) -->
     <div class="w3-top">
-    <div class="w3-row w3-padding w3-black">
-        <div class="w3-col s3">
-        <a href="#" class="w3-button w3-block w3-black">HOME</a>
+        <div class="w3-row w3-padding w3-black">
+            <div class="w3-third w3-container">
+            <a href="index.html" class="w3-button w3-block w3-black">INTRODUCTION</a>
+            </div>
+            <div class="w3-third w3-container">
+            <a href="report.html" class="w3-button w3-block w3-black">REPORT</a>
+            </div>
+            <div class="w3-third w3-container">
+            <a href="contact.html" class="w3-button w3-block w3-black">CONTACT</a>
+            </div>
         </div>
-        <div class="w3-col s3">
-        <a href="#about" class="w3-button w3-block w3-black">ABOUT</a>
-        </div>
-        <div class="w3-col s3">
-        <a href="#menu" class="w3-button w3-block w3-black">MENU</a>
-        </div>
-        <div class="w3-col s3">
-        <a href="#where" class="w3-button w3-block w3-black">WHERE</a>
-        </div>
-    </div>
     </div>
 
     <!-- Add a background color and large text to the whole page -->
     <div class="w3-sand w3-grayscale w3-large">
+        <div style="padding-top: 50px;"></div>
 
-        <div class="w3-container" style="padding-top: 50px;">
-            <h1>Evaluation of the efficacy of popular recurrent neural network architectures in time-series predictions</h1>
+        <div class="w3-container">
+            <h1>CS:5980:002 Deep Learning</h1>
+            <h1>Project introduction, proposals, and plan</h1>
             <h6>Spencer Gritton</h6>
             <hr>
         </div>
@@ -56,27 +55,101 @@ body, html {
         <div class="w3-container">
             <h1>Project Information</h1>
             <p>
-                The idea for this project is to explore popular recurrent neural network architectures and their efficacy in
-                making predictions on time-series financial data (Stocks, Cryptocurrencies, Bonds, etc). Recurrent neural nets are used on a wide variety of 
+                The idea for this project is to explore popular recurrent neural network architectures (RNNs) and their efficacy in
+                creating accurate regressions on time-series financial data (Stocks, Cryptocurrencies, Bonds, etc). RNNs are used on a wide variety of 
                 problem sets including: Autonomous driving, speech recognition/generation, and many others.
-                The use cases of recurrent neural nets, as well as their great strides in research as of late are the primary fuel
+                The use cases of RNNs, as well as their great strides in research as of late are the primary fuel
                 in my interest in this topic and I hope to learn a lot about the nuances of this particular type of deep learning. 
             </p>
-        </div>
+            <br>
 
-        <!-- About Container -->
-        <div class="w3-container" id="about">
-        <h3 >about</h3>
-        </div>
+            <h3>Dataset Details</h3>
+            <p>
+                The dataset will include normalized price and volume data from a variety of sources to cover different financial markets.
+                I plan to use open-source datasets such as those available on kaggle.com which include a variety of historical prices
+                and other relevant data for a variety of financial instruments. These datasets are large enough to be sufficient in 
+                evaluating the performance of each architecture against its peers.
+            </p>
+            <br>
 
-        <!-- Menu Container -->
-        <div class="w3-container" id="menu">
-            <h3>menu</h3>
-        </div>
+            <h3>Software Used</h3>
+            <p>
+                I plan to use a variety of software to create and/or replicate popular RNN architectures. 
+                The most important technologies are listed below:
+            </p>
+            <div class="w3-panel w3-leftbar w3-light-grey">
+                <ul>
+                    <li>Python 3.x</li>
+                    <li>TensorFlow 2</li>
+                    <li>Keras</li>
+                    <li>Numpy</li>
+                    <li>OpenCV</li>
+                    <li>Matplotlib</li>
+                </ul>
+            </div>
+            <br>
 
-        <!-- Contact/Area Container -->
-        <div class="w3-container" id="where" style="padding-bottom:32px;">
-        <h3>contact</h3>
+            <h3>Relevant Papers</h3>
+            <p>
+                I plan to take a holistic approach to learning about RNNs. This will include reading both early and modern papers on
+                the topic so that I am able to better understand: RNN use cases, early approaches to solving time-series regressions,
+                and the modern advances to RNN architectures applicable to my problem set. The papers I will be reading
+                are listed below.
+            </p>
+
+            <div class="w3-panel w3-card"><p>
+                <a href="https://axc.ulb.be/uploads/2015/11/89-nc.pdf"><h6><i>Finite-state automata and simple recurrent networks (1989)</i></h6></a>
+                <p>Authors: Cleeremans, A., Servan-Schreiber, D., and McClelland, J. L. </p>
+            </div>
+            <div class="w3-panel w3-card"><p>
+                <a href="https://arxiv.org/pdf/1506.00019.pdf"><h6><i>A Critical Review of Recurrent Neural Networks for Sequence Learning (2015)</i></h6></a>
+                <p>Authors: Lipton, Z., Berkowitz, J., and Elkan, C. </p>
+            </div>
+            <div class="w3-panel w3-card"><p>
+                <a href="https://arxiv.org/pdf/1412.3555.pdf"><h6><i>Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling (2014)</i></h6></a>
+                <p>Authors: Chung, J., Gulcehre, C., Bengio, Y., and Cho, K. </p>
+            </div>
+            <br>
+
+            <h3>Teammate Status</h3>
+            <p>I will not have a teammate for this project.</p>
+            <br>
+
+            <h3>Progress milestones</h3>
+            <p>This project will have two milestones: the progress date (April 14, 2020) and the final due date (May 12, 2020).</p>
+
+            <h4><u>Progress Due Date</u></h4>
+            <p>I hope to have the following finished by this date</p>
+            <div class="w3-panel w3-leftbar w3-light-grey">
+                <ul>
+                    <li>Read all relevant papers</li>
+                    <li>
+                        Find, transform, and load the relevant datasets into a TensorFlow readable pickle file.
+                        This file will contain test, validation, and training data from the original dataset split as follows:
+                        <ul>
+                            <li>80% Training data</li>
+                            <li>10% Testing data</li>
+                            <li>10% Validation data</li>    
+                        </ul>
+                    </li>
+                    <li>Begin experimentation with the most basic RNNs on the project dataset</li>
+                </ul>
+            </div>
+
+            <h4><u>Final Due Date</u></h4>
+            <p>The finished project will include</p>
+            <div class="w3-panel w3-leftbar w3-light-grey">
+                <ul>
+                    <li>An abstract detailing the project, methodologies used, and conclusions made</li>
+                    <li>A brief write-up on the techniques and processes used to transform the initial dataset into a TensorFlow/Keras readable format</li>
+                    <li>An analysis of the various RNN architectures explored and used for the project as well as their individual performances</li>
+                    <li>A comparsion of the different RNNs based on their analysis</li>
+                    <li>A comparsion between RNNs and other popular regression techniques</li>
+                    <li>A conclusion on the efficacy of RNNs as a predictor of time-series data</li>
+                    <li><i>All of the above will be made available as a report on this website</i></li>
+                </ul>
+            </div>
+
         </div>
 
     <!-- End page content -->
