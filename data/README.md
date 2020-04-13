@@ -1,0 +1,1 @@
+http://www.cryptodatadownload.com/data/coinbase/
