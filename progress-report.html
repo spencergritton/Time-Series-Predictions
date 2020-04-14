@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<title>CS:5980:002 Term Project</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inconsolata">
+
+<style>
+    body, html {
+    height: 100%;
+    font-family: "Inconsolata", sans-serif;
+    margin:0;
+    padding:0
+    }
+</style>
+
+<body>
+    <!-- Links (sit on top) -->
+    <header class="w3-display-container w3-grayscale-min">
+        <div class="w3-row w3-padding w3-black w3-display-container">
+            <div class="w3-quarter w3-container">
+                <a href="index.html" class="w3-button w3-block w3-black">PROPOSAL</a>
+            </div>
+            <div class="w3-quarter w3-container">
+                <a href="progress-report.html" class="w3-button w3-block w3-black">PROGRESS REPORT</a>
+            </div>
+            <div class="w3-quarter w3-container">
+                <a href="report.html" class="w3-button w3-block w3-black">REPORT</a>
+            </div>
+            <div class="w3-quarter w3-container">
+                <a href="contact.html" class="w3-button w3-block w3-black">CONTACT</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Add a background color and large text to the whole page -->
+    <div class="w3-sand w3-grayscale w3-large w3-display-container" style="min-height: 100%;">
+
+        <div class="w3-container w3-center">
+            <h1>CS:5980:002 Deep Learning</h1>
+            <h1>Progress Report: April 13, 2020</h1>
+            <h5><u>Evaluating the Efficacy of Modern Recurrent Neural Net Architectures on Time Series Regressions</u></h5>
+            <h6>Spencer Gritton</h6>
+            <hr>
+        </div>
+
+        <div class="w3-container">
+            <h1>Overview</h1>
+            <p>The goal for this progress report was to take the following steps toward completing the project:</p>
+            <div class="w3-panel w3-leftbar w3-light-grey">
+                <ul>
+                    <li>Read all relevant papers</li>
+                    <li>
+                        Find, transform, and load the relevant datasets into a TensorFlow readable pickle file.
+                        This file will contain test, validation, and training data from the original dataset split as follows:
+                        <ul>
+                            <li>80% Training data</li>
+                            <li>10% Testing data</li>
+                            <li>10% Validation data</li>    
+                        </ul>
+                    </li>
+                    <li>Begin experimentation with the most basic RNNs on the project dataset</li>
+                </ul>
+            </div>
+            <p>Progress updates on each of the above sections are provided below.</p>
+        </div>
+
+        <div class="w3-container">
+            <h3>Reading Relevant Papers</h3>
+            <p>For this project I was planning on reading three papers on recurrent neural nets (RNNs) in order to better understand
+                these architectures. Below I'll outline what I learned from each of the papers.
+            </p>
+
+            <div class="w3-panel w3-card"><p>
+                <a href="https://axc.ulb.be/uploads/2015/11/89-nc.pdf"><h6><i>Finite-state automata and simple recurrent networks (1989)</i></h6></a>
+                <p>Authors: Cleeremans, A., Servan-Schreiber, D., and McClelland, J. L. </p>
+            </div>
+            <p>This was one of the first papers on recurrent neural nets. In reading this paper I was hoping to get an understanding
+                of the thought process behind the invention of RNNs. This paper was primarily focused on the ability of RNNs
+                to predict the next character in a sequence of characters that follow specific rules. The researchers found that
+                by using simple RNNs they were able to perfectly predict the next character. Overall, I didn't learn much about the 
+                invention of RNNs but I did learn some about the use cases of RNNs (even simple ones) and the limits of these architectures.
+            </p>
+
+            <div class="w3-panel w3-card"><p>
+                <a href="https://arxiv.org/pdf/1506.00019.pdf"><h6><i>A Critical Review of Recurrent Neural Networks for Sequence Learning (2015)</i></h6></a>
+                <p>Authors: Lipton, Z., Berkowitz, J., and Elkan, C. </p>
+            </div>
+            <p>
+                My goal from this paper was to learn more about the recent advances in RNN research. This paper taught me more about different
+                RNNs such as: bidirectional RNNs (BRNNs), long short-term memory (LSTM RNNs), bidirectional LSTMs (BLSTMs), and neural turing machines (NTM).
+                Each of these respective network architectures have enhanced a specific field of research and it is my plan to attempt to use one or all
+                of these network architectures in this project.
+            </p>
+
+
+            <div class="w3-panel w3-card"><p>
+                <a href="https://arxiv.org/pdf/1412.3555.pdf"><h6><i>Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling (2014)</i></h6></a>
+                <p>Authors: Chung, J., Gulcehre, C., Bengio, Y., and Cho, K. </p>
+            </div>
+            <p>
+                The goal of reading this paper was to learn more about Gated RNNs (GRUs). I found it very interesting to learn about these
+                network designs especially in comparison to LSTMs. I am hoping to implement a GRU design into this project as well.
+            </p>
+        </div>
+        <br>
+
+        <div class="w3-container">
+            <h3>Find Dataset and Convert to a Usable Format</h3>
+            <h4><u>Finding the Dataset</u></h4>
+            <p>Finding a dataset was quite straightforward. I needed a lot of free and sequential financial data,
+                so I searched for an hourly cryptocurrency price dataset spanning multiple years. I chose a dataset containing
+                21,420 observations for each: Bitcoin, Ethereum, and Litecoin.
+                This dataset contains the following for each cryptocurrency in 1 hour increments:
+                <ul>
+                    <li>Opening price</li>
+                    <li>Closing price</li>
+                    <li>High</li>
+                    <li>Low</li>
+                    <li>Volume</li>
+                </ul>
+            </p>
+
+            <h4><u>Converting the Dataset to a Usable Format</u></h4>
+            <p>
+                Convering the dataset to a usable format consisted of <b>x</b> key steps.
+                <ol>
+                    <li><u>Choose relevant data</u></li>
+                    <p>
+                        For experimentation purposes I decided to keep just the close price and volume for each of the three cryptocurrencies 
+                        and combine them all together. This means that to predict the future price of each cryprocurrency the network would have
+                        the closing price and volume of all other cryptocurrencies in the dataset along with itself.
+                    </p>
+                    <li><u>Normalize and scale the data</u></li>
+                    <p>
+                        The data all needed to be normalized and scaled so that prices and volumes between cryptocurrencies could be compared.
+                        Price and volume data were all converted to their percent change from last and then scaled to be between -1 and 1.
+                        This was done using a mixture of excel and python tools including: pandas, sklearn, and keras. 
+                        Dates were also changed to be milliseconds time since linux epoch time (Jan. 1 1970) to make comparisons easier.
+                        The dataset was also evened so there were the same amount of datapoints representing price moving upward and downward in the future.
+                    </p>
+                    <li><u>Break data into training and validation sets</u></li>
+                    <p>
+                        This was simply done by taking the last 10% of data and making that the validation set. Using Linux epoch time was useful here.
+                    </p>
+                    <li><u>Make the datasets usable in Keras</u></li>
+                    <p>
+                        To do this the 3 datasets were combined using pandas and made into one DataFrame object. This object was then split into training and 
+                        target data (examples and their target outcomes). This step was done twice, once for training data and once for validation data.
+                    </p>
+                </ol>
+            </p>
+        </div>
+        <br>
+
+        <div class="w3-container">
+            <h3>Experimentation</h3>
+            <p>
+                I've preformed experimentation both broadly with Keras and more specifically with the dataset I found online.
+            </p>
+            <h4><u>Keras Experimentation</u></h4>
+            <p>
+                In order to learn more about Keras before using it for such a large project I did the following:
+                <ul>
+                    <li>Read Keras documentation</li>
+                    <li>Looked through the professors slides on Keras, TensorFlow, and RNNs</li>
+                    <li>Watched a series of videos online on Keras</li>
+                </ul>
+                I found the series of videos I watched online to be of great help in learning the use cases and syntax of Keras. Through the online
+                guide I was able to use Keras to make a simple network able to classify the MNIST dataset using LSTM cells.
+            </p>
+            <h4><u>Dataset Experimentation</u></h4>
+            <p>
+                I've begun experimenting with the dataset I found, combined, normalized, and scaled.
+                This includes attempting to train experimental LSTM networks on the dataset. Unfortuantely at the moment I've been unable to
+                make any good progress at training a network using the data. I suspect this is because of an error in the code that covers normalization or scaling.
+                I will be taking another look at that code in the days to follow in an attempt to find the problem.
+                <br><br>
+                As you can see from the sample output of a small training test below, the model currently does no better than a human when predicting if a 
+                cryptocurrency price will go up or down given the last 30 hours of coin closing prices and volumes.
+                <br><br>
+                I may consider finding a pre-written program and using that as a base to start experimentation if I'm unable to find
+                the flaw in the current code.
+            </p>
+            <img src="assets/sample.png" class="w3-grayscale-min w3-round-small" alt="Avatar" style="width:30%;">
+        </div>
+        <br>
+
+        <div class="w3-container">
+            <h3>Moving Forward</h3>
+            <p>
+                As the project progresses I hope to be able to begin training successfully on the dataset I've found online.
+                In order to do this I may have to explore other ways of formatting, normalizing, and scaling the data. 
+                <br><br>
+                Once I'm able to successfully train on the dataset I will be able to start exploring different network architectures such as:
+                simple RNNs, LSTMs, BRNNs, BLSTMs, GRUs, and NTMs. From this I hope to learn about the use cases and downfalls of each type of 
+                network as it pertains to financial time-series classification.
+            </p>
+        </div>
+
+    </div>
+</body>
+
+</html>
