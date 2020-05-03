@@ -5,7 +5,9 @@ from tensorflow.keras.layers import Dense, Flatten, Dropout, Activation, LSTM, C
 # Load MNIST
 mnist = tf.keras.datasets.mnist
 (xTrain, yTrain), (xTest, yTest) = mnist.load_data()
+print(xTrain.shape)
 
+'''
 # Normalize data
 xTrain = tf.keras.utils.normalize(xTrain, axis=1)
 xTest = tf.keras.utils.normalize(xTest, axis=1)
@@ -32,4 +34,4 @@ model.compile(loss="sparse_categorical_crossentropy",
     optimizer=opt,
     metrics=['accuracy'])
 
-model.fit(xTrain, yTrain, epochs=3, validation_data=(xTest, yTest))
+model.fit(xTrain, yTrain, epochs=3, validation_data=(xTest, yTest))'''

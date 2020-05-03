@@ -16,8 +16,8 @@ mnist = tf.keras.datasets.mnist
 xTrain = tf.keras.utils.normalize(xTrain, axis=1)
 xTest = tf.keras.utils.normalize(xTest, axis=1)
 
-dense_layers = [1, 2, 3]
-layer_sizes = [64, 128, 256, 512]
+dense_layers = [1]
+layer_sizes = [64]
 
 # Build model
 model = Sequential()
@@ -45,5 +45,5 @@ for dense_layer in dense_layers:
         # To use TensorBoard: python3 /Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/tensorboard/main.py --logdir='logs/'
 
         # Statistics
-        valLoss, valAccuracy = model.evaluate(xTest, yTest)
-        print ("Model: {}\nValidation Loss: {}\nValidation Accuracy: {}\n".format(NAME, valLoss, valAccuracy))
+        # valLoss, valAccuracy = model.evaluate(xTest, yTest)
+        # print ("Model: {}\nValidation Loss: {}\nValidation Accuracy: {}\n".format(NAME, valLoss, valAccuracy))
