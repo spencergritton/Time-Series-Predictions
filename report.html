@@ -8,10 +8,15 @@
 
 <style>
     body, html {
-    height: 100%;
-    font-family: "Inconsolata", sans-serif;
-    margin:0;
-    padding:0
+        height: 100%;
+        font-family: "Inconsolata", sans-serif;
+        margin:0;
+        padding:0
+    }
+    div.sticky {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        top: 0;
     }
 </style>
 
@@ -46,7 +51,324 @@
         </div>
 
         <div class="w3-container">
-            <p>This page is currently under construction and will be updated when the project is completed.</p>
+            <h1>Abstract</h1>
+            <p>
+                This report is an examination and comparison of popular recurrent neural network (RNN) 
+                architectures when used on two multi-variable time series regressions.
+                Simple RNNs, LSTMs, GRUs, Bi-Directional LSTMs, and LSTMs with Attention
+            </p>
+        </div>
+        <hr>
+
+        <div class="w3-container">
+            <h1>Introduction</h1>
+            <p>
+                Explain experiments, what usefulness they have, the whole point of this experiment is 
+                to try to see if there is an ideal RNN architecture for financial time series predictions
+            </p>
+        </div>
+        <hr>
+
+        <!---->
+
+        <div class="w3-container">
+            <h1>Two Variable Regression</h1>
+            <p>
+                This experiment was designed to explore if there is a clear choice in RNN network architecture on two
+                variables regressions that are stopped early. The proposed benefit of this experiment is to give 
+                future machine learning practitioners a smaller subset of viable RNN architectures to work with in order to
+                reduce the time commitment to generate accurate models.
+            </p>
+        </div>
+
+        <div class="w3-container">
+            <h3>Dataset Details</h3>
+            <p>
+                This dataset is taken from a subset of the dataset "Bitcoin Historical Data", retrieved from:
+                <a href="https://www.kaggle.com/mczielinski/bitcoin-historical-data">Kaggle.com</a>.
+                The dataset contains the closing price and volume of bitcoin traded each minute from:
+                2018-06-14 04:31:00 - 2018-08-25 11:40:00 on the BitStamp coin exchange.
+            </p>
+            <br>
+
+            <h5>Sequence Extraction</h5>
+            <p>
+                To create the training and validation sets of data the dataset was split into: 
+                training input, training output, validation input, and validation output.
+                The input of both sets was created as a list of 30 unit sequences.
+                Each sequence in the input consisted of 30 objects from x₁ to x₃₀.
+                Each xᵢ from x₁ to x₃₀ consisted of a tuple where the first element was the bitcoin price
+                at x₃₀-xᵢ and the second element was the bitcoin volume at x₃₀-xᵢ. The output of both sets was a
+                list of floating point values where each element in the list was the bitcoin price at x₄₀ 
+                (ten minute after the sequence end) for each respective
+                sequence ranging from x₁ to x₃₀. All data points in all sets had a z-score normalization applied to them
+                before being placed in their respective sequences. The input and output sets were then split into training and 
+                validation sets, where the validation set was simply the the most recent 10% of the time series data and the
+                training set was all data that came before the 10% cut-off. An example of the sequence generation technique
+                is given below for clarity. Note: This example is changed slightly from the code for clarity.
+            </p>
+            <p><u>Input data</u></p>
+            <table class="w3-table w3-striped w3-bordered w3-border">
+                <tr>
+                    <th>Date</th>
+                    <th>Closing Price</th>
+                    <th>Volume</th>
+                </tr>
+                <tr>
+                    <td>2018-08-25 11:50:00</td>
+                    <td>5640.55</td>
+                    <td>103.97</td>
+                </tr>
+                <tr>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                </tr>
+                <tr>
+                    <td>2018-08-25 11:40:00</td>
+                    <td>5640.12</td>
+                    <td>104.44</td>
+                </tr>
+                <tr>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                </tr>
+                <tr>
+                    <td>2018-08-25 11:11:00</td>
+                    <td>5127.26</td>
+                    <td>168.52</td>
+                </tr>
+                <tr>
+                    <td>2018-08-25 11:10:00</td>
+                    <td>5123.66</td>
+                    <td>126.45</td>
+                </tr>
+                <tr>
+                    <td>...</td>
+                    <td>...</td>
+                    <td>...</td>
+                </tr>
+            </table>
+            
+            <p><u>Generated Input and Output</u>: Note: This is just an example and not using real data.</p>
+            <p>Un-normalized input: [(5123.66, 126.45), (5127.26, 168.52), ..., (5640.12, 104.44)]</p>
+            <p>Un-normalized output: [5640.55]</p>
+            <p>Normalized input: [(0.4567, 0.556), (0.46776, 0.7823), ..., (0.8891, 0.3643)]</p>
+            <p>Normalized output: [0.8912]</p>
+            <p>
+                Note: The above is an example of the generation of just one sequence. This dataset contained 97,774 rows of data.
+                This means that 97,744 sequences were generated for the inputs and outputs of this set.
+            </p>
+            <br>
+
+            <h5>Balancing the Data</h5>
+            <p>
+                The research paper: <a href="https://arxiv.org/abs/1710.05381"><u>"A systematic study of the class imbalance problem
+                    in convolutional neural networks"</u></a> by Buda, Maki, and Mazurowski makes it clear that there is a benefit
+                to balancing your dataset in most non-regression machine learning tasks. The paper was very beneficial
+                to my understanding of neural networks but because this is a regression task the data was not balanced.
+            </p>
+        </div>
+
+        <div class="w3-container">
+            <h3>Procedure</h3>
+            <p>
+                The procedure for this experiment was to test the following RNN architecture types against each other:
+                Simple RNNs, LSTMs, GRUs, Attention LSTMs, and Bi-Directional LSTMs. This was done by training four networks
+                of each architecture type where the only difference in each network was the type of RNN cell used.
+                The goal of each network is to take a sequence of 30 minutes of normalized bitcoin price and volume data 
+                then predict what the price will be 10 minutes into the future.
+            </p>
+        </div>
+
+        <div class="w3-container">
+            <h3>Methods</h3>
+            <p>
+                Experiment built using TensorFlow/Keras and ran on a NVIDIA Quadro P4000 GPU.
+            </p>
+            <p>
+                For each RNN type four networks were created and trained, totaling to 20 trained networks.
+                Each network was trained for five epochs with mean squared error as the loss function.
+                The following are the four types of networks generated for each type of RNN:
+                <ul>
+                    <li>
+                        2 RNN Layers with 64 Cells
+                        <ul>
+                            <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
+                            <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
+                            <li>32 neuron fully connected layer, ReLu activation, 20% dropout, batch normalization</li>
+                            <li>1 neuron fully connected layer, Linear activation, 20% dropout, batch normalization</li>
+                        </ul>
+                    </li>
+                    <li>
+                        2 RNN Layers with 128 Cells
+                        <ul>
+                            <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
+                            <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
+                            <li>32 neuron fully connected layer, ReLu activation, 20% dropout, batch normalization</li>
+                            <li>1 neuron fully connected layer, Linear activation, 20% dropout, batch normalization</li>
+                        </ul>
+                    </li>
+                    <li>
+                        3 RNN Layers with 64 Cells
+                        <ul>
+                            <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
+                            <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
+                            <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
+                            <li>32 neuron fully connected layer, ReLu activation, 20% dropout, batch normalization</li>
+                            <li>1 neuron fully connected layer, Linear activation, 20% dropout, batch normalization</li>
+                        </ul>
+                    </li>
+                    <li>
+                        3 RNN Layers with 128 Cells
+                        <ul>
+                            <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
+                            <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
+                            <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
+                            <li>32 neuron fully connected layer, ReLu activation, 20% dropout, batch normalization</li>
+                            <li>1 neuron fully connected layer, Linear activation, 20% dropout, batch normalization</li>
+                        </ul>
+                    </li>
+                </ul>
+            </p>
+            <p>
+                The code used to generate these models is listed below. Please note that not all code was written by me,
+                code written by others is clearly marked in the project files.
+            </p>
+            <p style="white-space: pre-line;"><a href="#"><u>RNN Code</u></a>
+                <a href="#"><u>LSTM Code</u></a>
+                <a href="#"><u>GRU Code</u></a>
+                <a href="#"><u>Bi-Directional LSTM Code</u></a>
+                <a href="#"><u>Attention LSTM Code</u></a>
+            </p>
+        </div>
+
+        <div class="w3-container">
+            <h3>Results</h3>
+            <p>
+                The results of training all the networks for 5 epochs with a batch size of 32 on the given task are below.
+            </p>
+
+            <table class="w3-table w3-striped w3-bordered w3-border">
+                <tr>
+                    <th>Network</th>
+                    <th>Mean Squared Error (Validation)</th>
+                    <th>Mean Absolute Error (Validation)</th>
+                    <th>Training Time</th>
+                </tr>
+                <tr><td>SimpleRNN, 2 Layer, 64 Cell</td><td>0.02484</td><td>0.0959</td><td>7 Minutes 22 Seconds</td></tr>
+                <tr><td>SimpleRNN, 2 Layer, 128 Cell</td><td>0.02497</td><td>0.1249</td><td>10 Minutes 57 Seconds</td></tr>
+                <tr><td>SimpleRNN, 3 Layer, 64 Cell</td><td>0.0338</td><td>0.1349</td><td>15 Minutes 50 Seconds</td></tr>
+                <tr><td>SimpleRNN, 3 Layer, 128 Cell</td><td>0.03482</td><td>0.1182</td><td>21 Minutes 8 Seconds</td></tr>
+                <tr><td>LSTM, 2 Layer, 64 Cell</td><td>0.02912</td><td>0.103</td><td>15 Minutes 20 Seconds</td></tr>
+                <tr><td>LSTM, 2 Layer, 128 Cell</td><td>0.02567</td><td>0.09062</td><td>30 Minutes 0 Seconds</td></tr>
+                <tr><td>LSTM, 3 Layer, 64 Cell</td><td>0.03633</td><td>0.1082</td><td>28 Minutes 54 Seconds</td></tr>
+                <tr><td>LSTM, 3 Layer, 128 Cell</td><td>0.03719</td><td>0.109</td><td>39 Minutes 30 Seconds</td></tr>
+                <tr><td>GRU, 2 Layer, 64 Cell</td><td>0.02639</td><td>0.09239</td><td>19 Minutes 9 Seconds</td></tr>
+                <tr><td>GRU, 2 Layer, 128 Cell</td><td>0.03013</td><td>0.096</td><td>30 Minutes 11 Seconds</td></tr>
+                <tr><td>GRU, 3 Layer, 64 Cell</td><td>0.04415</td><td>0.144</td><td>29 Minutes 33 Seconds</td></tr>
+                <tr><td>GRU, 3 Layer, 128 Cell</td><td>0.0297</td><td>0.09875</td><td>36 Minutes 41 Seconds</td></tr>
+                <tr><td>Bi-Directional LSTM, 2 Layer, 64 Cell</td><td>0.03105</td><td>0.09998</td><td>29 Minutes 52 Seconds</td></tr>
+                <tr><td>Bi-Directional LSTM, 2 Layer, 128 Cell</td><td>0.03778</td><td>0.1285</td><td>41 Minutes 19 Seconds</td></tr>
+                <tr><td>Bi-Directional LSTM, 3 Layer, 64 Cell</td><td>0.03018</td><td>0.09699</td><td>44 Minutes 13 Seconds</td></tr>
+                <tr><td>Bi-Directional LSTM, 3 Layer, 128 Cell</td><td>0.03405</td><td>0.1081</td><td>25 Minutes 50 Seconds</td></tr>
+                <tr><td>Attention LSTM, 2 Layer, 64 Cell</td><td>0.0394</td><td>0.1276</td><td>21 Minutes 17 Seconds</td></tr>
+                <tr><td>Attention LSTM, 2 Layer, 128 Cell</td><td>0.04258</td><td>0.125</td><td>29 Minutes 21 Seconds</td></tr>
+                <tr><td>Attention LSTM, 3 Layer, 64 Cell</td><td>0.0418</td><td>0.1087</td><td>27 Minutes 42 Seconds</td></tr>
+                <tr><td>Attention LSTM, 3 Layer, 128 Cell</td><td>0.04056</td><td>0.1137</td><td>33 Minutes 32 Seconds</td></tr>
+                <tr><th>Total Training Time (Minutes)</th><td></td><td></td><th>528 Minutes 581 Seconds</th></tr>
+                <tr><th>Total Training Time (Hours)</th><td></td><td></td><th>8.96 Hours</th></tr>
+                <tr><th>Average Training Time (Minutes)</th><td></td><td></td><th>26 Minutes 53 Seconds</th></tr>
+            </table>
+        </div>
+        <br>
+
+        <div class="w3-container">
+            <h3>Discussion</h3>
+
+            <h5>The more advanced architectures will not always do the best</h5>
+            <p>
+                In this experiment the simple 2 layer RNN with 64 cells per layer had the lowest mean squared error on the validation set.
+                This was very surprising as I had expected the newer/more advanced networks to very easily surpass the default RNN. 
+                This experiment shows it is pertinent to experiment with many different network types before settling on one.
+                Remember that there is no reason to assume the most modern networks will perform the best.
+            </p>
+
+            <h5>Training times don't increase much with complexity</h5>
+            <p>
+                Running for only five epochs per experiment took nearly 9 hours of total compute time on an enterprise grade NVIDIA Quadro P4000 GPU.
+                These training sessions take a long time, but With the exception of the simple RNN, 
+                the majority of them take a very similar amount of time. This means that for the most
+                part when training an RNN on a relatively small amount of time series data there should be little need to optimize for architectures with fast 
+                training times.
+                <table class="w3-table w3-striped w3-bordered w3-border">
+                    <tr>
+                        <th>RNN Type</th>
+                        <th>Average Training Time (5 Epochs)</th>
+                    </tr>
+                    <tr><td>Simple RNN</td><td>13.82 Minutes</td></tr>
+                    <tr><td>LSTM</td><td>28.43 Minutes</td></tr>
+                    <tr><td>GRU</td><td>28.89 Minutes</td></tr>
+                    <tr><td>Bi-Directional LSTM</td><td>35.31 Minutes</td></tr>
+                    <tr><td>Attention LSTM</td><td>27.97 Minutes</td></tr>
+                </table>
+            </p>
+
+            <h5>This experiment ran for a low number of epochs</h5>
+            <p>
+                Because of the cost to rent a cloud GPU I was only able to afford to run this experiment for a small amount of epochs.
+                Because of this, the experiment does not give prospective machine learning practitioners the full picture of the capabilities and 
+                downfalls of each RNN cell type on this type of problem set. It's possible that some architectures that performed badly here would've caught or 
+                even surpassed the well performing ones if given more epochs or training data. Because of this it is necessary to take these experimental results 
+                for what they are, experimental.
+            </p>
+
+            <h5>This problem may not have been well suited to all architecture types</h5>
+            <p>
+                The more modern RNN architectures make use of different memory techniques to increase accuracy. Because of this, it is expected that in tasks
+                where the network needs to know relevant information from many different parts of the sequence, a simple RNN would do much worse than the 
+                other types of RNN cells experimented on here. It might be just coincidence that the simple RNNs outperformed all other architectures in this experiment
+                but it also may be that this test was most easily solvable by a network with no memory and a simple output heurestic. 
+                This further reinforces that in order to get the best model, practitioners should experiment with many different architecture types.
+            </p>
+
+        </div>
+        <hr>
+
+        <!---->
+
+        <div class="w3-container">
+            <h1>Test 2</h1>
+        </div>
+
+        <div class="w3-container">
+            <h3>Test 2 Methods</h3>
+        </div>
+
+        <div class="w3-container">
+            <h3>Test 2 Results</h3>
+        </div>
+
+        <div class="w3-container">
+            <h3>Test 2 Discussion</h3>
+        </div>
+        <hr>
+
+        <!---->
+
+        <div class="w3-container">
+            <h1>Conclusions</h1>
+        </div>
+        <hr>
+
+        <div class="w3-container">
+            <h1>Acknowledgements</h1>
+        </div>
+        <hr>
+
+        <div class="w3-container">
+            <h1>References</h1>
         </div>
 
     </div>
