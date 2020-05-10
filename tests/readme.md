@@ -1,0 +1,1 @@
+The tests folder serves no real purpose in this project. It is simply a folder filled with experiments and tests used to learn more about python, keras, pandas, and more. It's only left in the project to show this part of the learning process

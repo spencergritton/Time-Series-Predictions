@@ -1,0 +1,6 @@
+Name,Val_Loss,Val_Mae,Epochs_Scheduled,Epochs_Ran,Training_Time(Mins),Input_Len,Output_Len,Batch_Size,Optimizer,Regularization,Dropout
+BiDirectionalLSTM-180-30,0.00563313721996978,0.03852400183677673,250,35,13.835886466503146,180,30,128,"Adadelta: learning_rate=1.0, rho=0.95","l2: 0.01, output penalty ""activity""",0.5
+LSTM-180-30,0.003990279081565318,0.029511814936995506,250,44,15.617183208465574,180,30,128,"Adadelta: learning_rate=1.0, rho=0.95","l2: 0.01, output penalty ""activity""",0.5
+SimpleRNN-180-30,0.0033795790534088465,0.02823877893388272,250,117,17.219517024358115,180,30,128,"Adadelta: learning_rate=1.0, rho=0.95","l2: 0.01, output penalty ""activity""",0.5
+GRU-180-30,0.0030087782271392125,0.02592490427196026,250,128,32.34058838287989,180,30,128,"Adadelta: learning_rate=1.0, rho=0.95","l2: 0.01, output penalty ""activity""",0.5
+BiDirectionalGRU-180-30,0.010775859222402583,0.03390241041779518,250,44,10.26025865872701,180,30,128,"Adadelta: learning_rate=1.0, rho=0.95","l2: 0.01, output penalty ""activity""",0.5
