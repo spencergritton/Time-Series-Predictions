@@ -16,7 +16,6 @@ from tensorflow.keras.callbacks import TensorBoard, TerminateOnNaN, ReduceLROnPl
 from tensorflow.keras.optimizers import RMSprop, Adadelta
 from tensorflow.keras import regularizers
 
-
 # Set reproducable seed values to compare each experiment based on their outputs and not seed values
 # The below is necessary for starting Numpy generated random numbers
 # in a well-defined initial state.
@@ -37,9 +36,9 @@ sess = tf.compat.v1.Session(
 )
 tf.compat.v1.keras.backend.set_session(sess)
 
-
 # Dataset
 dataset = 'BTC_180_30'
+
 
 # Open dataset from pickle file
 pickle_in = open(f"{dataset}.pickle", "rb")
@@ -51,7 +50,7 @@ trainX, trainY = train
 testX, testY = test
 
 # Model name
-model_name = 'LSTM_BTC_180_30'
+model_name = 'LSTM-180-30'
 
 # Hyper params
 DROPOUT = 0.5
@@ -107,7 +106,7 @@ time_callback = TimeHistory()
 # Train model
 history = model.fit(
     trainX, trainY, 
-    epochs=EPOCHS, 
+    epochs=1, 
     validation_data=(testX, testY),
     batch_size=BATCH_SIZE,
     shuffle=True,
@@ -153,7 +152,6 @@ plt.show()
 
 # save the plot as a file
 fig.savefig(f'plots/{model_name}.png', format='png', dpi=250, bbox_inches='tight')
-
 
 # Store model data to csv for analysis
 filePath = 'ml-results.csv'
