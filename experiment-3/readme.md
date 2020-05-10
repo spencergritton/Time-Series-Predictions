@@ -1,7 +1,7 @@
 # Read Me
 
 # Experiment 3 Overview
-The purpose of this experiment is to see what the maximum potential of RNNs may be on this dataset. This was accomplished using a few alterations to experiment 2:
+The purpose of this experiment is to see what the maximum potential of RNNs may be on this dataset. This was accomplished using a few alterations to experiment 3:
 - Multiple RNN layers
 - Multiple Dense layers
 - 250 epoch training (~21 hours)
@@ -28,7 +28,7 @@ So to run any of these experiments do the following (from the main project folde
 **NOTE 2: Loading the dataset into python memory requires > 10GB of RAM. If your computer does not have this the program will crash. Additionally, if your GPU has low memory you may have to reduce the batch size.**
 
 # Logs
-Each file is logged using tensorboard to the experiment-2/logs folder. 
+Each file is logged using tensorboard to the experiment-3/logs folder. 
 Take a look at TensorBoard's documentation for help viewing them: https://www.tensorflow.org/tensorboard
 
 # Checkpoints
