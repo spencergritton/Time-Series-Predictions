@@ -1,0 +1,4 @@
+Name,Val_Loss,Val_Mae,Epochs_Scheduled,Epochs_Ran,Training_Time(Mins),Input_Len,Output_Len,Batch_Size,Optimizer,Regularization,Dropout
+LSTM-GRU-250,0.15191308,0.23991394,250,34,177.5106781,180,30,256,"Adadelta: learning_rate=1.0, rho=0.95","l2: 0.01, output penalty ""activity""",0.5
+Bidirectional-LSTM-GRU-250,0.067635128,0.129869357,250,63,450.9644763,180,30,256,"Adadelta: learning_rate=1.0, rho=0.95","l2: 0.01, output penalty ""activity""",0.5
+SimpleRNN-250,1.056928001,0.642972946,250,36,114.1520359,180,30,256,"Adadelta: learning_rate=1.0, rho=0.95","l2: 0.01, output penalty ""activity""",0.5
