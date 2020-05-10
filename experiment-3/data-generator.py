@@ -12,7 +12,7 @@ import gc
 SEQUENCE_LENGTH = 180
 NUMBER_MINUTES_TO_PREDICT = 30
 FILE_TO_PREDICT = "coinbase"
-outputFileName = 'coinbase_180_30'
+OUTPUT_FILE_NAME = 'coinbase_180_30'
 TRAIN_PERCENT = .80
 
 # Import data into one df with columns: Date, Open, Close, Low, High, Volume_BTC, Volume_Dollars, Weighted_Price
@@ -210,7 +210,7 @@ gc.collect()
 
 # Save to pickle file
 print('Saving file...')
-pickle.dump(data, open(f"{outputFileName}.pickle", 'wb'), protocol=4)
+pickle.dump(data, open(f"{OUTPUT_FILE_NAME}.pickle", 'wb'), protocol=4)
 
-print(f'Pickle saved: {outputFileName}.pickle')
+print(f'Pickle saved: {OUTPUT_FILE_NAME}.pickle')
 print(f"Dataset generator took {time.time()-start_time} seconds to generate the dataset.")

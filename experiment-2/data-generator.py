@@ -10,7 +10,7 @@ import time
 SEQUENCE_LENGTH = 180
 NUMBER_MINUTES_TO_PREDICT = 30
 FILE_TO_PREDICT = "BTC-USD"
-outputFileName = 'BTC_180_30'
+OUTPUT_FILE_NAME = 'BTC_180_30'
 TRAIN_PERCENT = .80
 
 # Import data into one df with columns: Volume, Close, Low, High, Open, Date
@@ -186,9 +186,9 @@ parameters = {'input_len': SEQUENCE_LENGTH, 'output_len': NUMBER_MINUTES_TO_PRED
 data = train, test, parameters
 
 # Save to pickle file
-pickle_stream = open(f"{outputFileName}.pickle", "wb")
+pickle_stream = open(f"{OUTPUT_FILE_NAME}.pickle", "wb")
 pickle.dump(data, pickle_stream)
 pickle_stream.close()
 
-print(f'Pickle saved: {outputFileName}')
+print(f'Pickle saved: {OUTPUT_FILE_NAME}')
 print(f"Dataset generator took {time.time()-start_time} seconds to generate the dataset.")
