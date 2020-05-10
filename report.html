@@ -18,6 +18,9 @@
         position: sticky;
         top: 0;
     }
+    html {
+        scroll-behavior: smooth;
+    }
 </style>
 
 <body>
@@ -45,8 +48,9 @@
         <div class="w3-container w3-center">
             <h1>CS:5980:002 Deep Learning</h1>
             <h1>Report</h1>
-            <h5><u>Evaluating the Efficacy of Modern Recurrent Neural Net Architectures on Time Series Regressions</u></h5>
+            <h5>Evaluating the Efficacy of Modern Recurrent Neural Net Architectures on Time Series Regressions</h5>
             <h6>Spencer Gritton</h6>
+            <h6><a href="https://github.com/spencergritton/Time-Series-Predictions">GitHub Project</a></h6>
             <hr>
         </div>
 
@@ -55,7 +59,7 @@
             <p>
                 This report is an examination and comparison of popular recurrent neural network (RNN) 
                 architectures when used on two multi-variable time series regressions.
-                Simple RNNs, LSTMs, GRUs, Bi-Directional LSTMs, and LSTMs with Attention
+                Simple RNNs, LSTMs, GRUs, Bi-Directional LSTMs, and Bi-Directional GRUs
             </p>
         </div>
         <hr>
@@ -72,12 +76,11 @@
         <!---->
 
         <div class="w3-container">
-            <h1>Two Variable Regression</h1>
+            <h1>Convergence Rate on Two Variable Regression (Experiment 1)</h1>
             <p>
-                This experiment was designed to explore if there is a clear choice in RNN network architecture on two
-                variables regressions that are stopped early. The proposed benefit of this experiment is to give 
-                future machine learning practitioners a smaller subset of viable RNN architectures to work with in order to
-                reduce the time commitment to generate accurate models.
+                This experiment was designed to explore if there is a clear choice in RNN network architecture on time series regressions in terms of convergence rate. 
+                The proposed benefit of this experiment is to give future machine learning practitioners a smaller subset of viable 
+                RNN architectures to work with in order to reduce the time commitment to generate the best possible models.
             </p>
         </div>
 
@@ -86,12 +89,12 @@
             <p>
                 This dataset is taken from a subset of the dataset "Bitcoin Historical Data", retrieved from:
                 <a href="https://www.kaggle.com/mczielinski/bitcoin-historical-data">Kaggle.com</a>.
-                The dataset contains the closing price and volume of bitcoin traded each minute from:
-                2018-06-14 04:31:00 - 2018-08-25 11:40:00 on the BitStamp coin exchange.
+                The subset used for this experiment contains the closing price and volume of bitcoin traded each minute from:
+                2018-06-14 04:31:00 - 2018-08-25 11:40:00 on the Coinbase coin exchange.
             </p>
             <br>
 
-            <h5>Sequence Extraction</h5>
+            <h5 id='sequence-e1'>Sequence Extraction</h5>
             <p>
                 To create the training and validation sets of data the dataset was split into: 
                 training input, training output, validation input, and validation output.
@@ -151,14 +154,14 @@
                 </tr>
             </table>
             
-            <p><u>Generated Input and Output</u>: Note: This is just an example and not using real data.</p>
+            <p><u>Generated Input and Output</u>: Note: This is just an example using the data above.</p>
             <p>Un-normalized input: [(5123.66, 126.45), (5127.26, 168.52), ..., (5640.12, 104.44)]</p>
             <p>Un-normalized output: [5640.55]</p>
             <p>Normalized input: [(0.4567, 0.556), (0.46776, 0.7823), ..., (0.8891, 0.3643)]</p>
             <p>Normalized output: [0.8912]</p>
             <p>
                 Note: The above is an example of the generation of just one sequence. This dataset contained 97,774 rows of data.
-                This means that 97,744 sequences were generated for the inputs and outputs of this set.
+                This means that roughly 97,744 sequences were generated for the inputs and outputs of this set.
             </p>
             <br>
 
@@ -175,8 +178,8 @@
             <h3>Procedure</h3>
             <p>
                 The procedure for this experiment was to test the following RNN architecture types against each other:
-                Simple RNNs, LSTMs, GRUs, Attention LSTMs, and Bi-Directional LSTMs. This was done by training four networks
-                of each architecture type where the only difference in each network was the type of RNN cell used.
+                Simple RNNs, LSTMs, GRUs, Bi-Directional LSTMs, and Bi-Directional GRUs. This was done by training four networks
+                of each architecture type where the only difference in each network was the type of RNN cell used and number of layers.
                 The goal of each network is to take a sequence of 30 minutes of normalized bitcoin price and volume data 
                 then predict what the price will be 10 minutes into the future.
             </p>
@@ -185,15 +188,16 @@
         <div class="w3-container">
             <h3>Methods</h3>
             <p>
-                Experiment built using TensorFlow/Keras and ran on a NVIDIA Quadro P4000 GPU.
+                Each network was built using Tensorflow/Keras.
             </p>
             <p>
-                For each RNN type four networks were created and trained, totaling to 20 trained networks.
+                For each RNN type (Simple RNN, LSTM, GRU, Bi-Directional LSTM, and Bi-Directional GRU), four networks were created and trained, 
+                combining to 20 trained networks.
                 Each network was trained for five epochs with mean squared error as the loss function.
                 The following are the four types of networks generated for each type of RNN:
                 <ul>
                     <li>
-                        2 RNN Layers with 64 Cells
+                        2 RNN Layers with 64 Cells. Architecture below:
                         <ul>
                             <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
@@ -232,15 +236,24 @@
                     </li>
                 </ul>
             </p>
-            <p>
-                The code used to generate these models is listed below. Please note that not all code was written by me,
-                code written by others is clearly marked in the project files.
+            <br/>
+
+            <p style="white-space: pre-line;">Detailed layer by layer information for each network listed here:
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-1/architectures/SimpleRNN.md"><u>Simple RNN</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-1/architectures/LSTM.md"><u>LSTM</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-1/architectures/GRU.md"><u>GRU</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-1/architectures/Bi-DirectionalLSTM.md"><u>Bi-Directional LSTM</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-1/architectures/Bi-DirectionalGRU.md"><u>Bi-Directional GRU</u></a>
             </p>
-            <p style="white-space: pre-line;"><a href="#"><u>RNN Code</u></a>
-                <a href="#"><u>LSTM Code</u></a>
-                <a href="#"><u>GRU Code</u></a>
-                <a href="#"><u>Bi-Directional LSTM Code</u></a>
-                <a href="#"><u>Attention LSTM Code</u></a>
+            <p>
+
+            </p>
+            <p style="white-space: pre-line;">Code for dataset generation and model training here:
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-1/SimpleRNN.py"><u>Simple RNN Code</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-1/LSTM.py"><u>LSTM Code</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-1/GRU.py"><u>GRU Code</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-1/BidirectionalLSTM.py"><u>Bi-Directional LSTM Code</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-1/BidirectionalGRU.py"><u>Bi-Directional GRU Code</u></a>
             </p>
         </div>
 
@@ -257,10 +270,10 @@
                     <th>Mean Absolute Error (Validation)</th>
                     <th>Training Time</th>
                 </tr>
-                <tr><td>SimpleRNN, 2 Layer, 64 Cell</td><td>0.02484</td><td>0.0959</td><td>7 Minutes 22 Seconds</td></tr>
-                <tr><td>SimpleRNN, 2 Layer, 128 Cell</td><td>0.02497</td><td>0.1249</td><td>10 Minutes 57 Seconds</td></tr>
-                <tr><td>SimpleRNN, 3 Layer, 64 Cell</td><td>0.0338</td><td>0.1349</td><td>15 Minutes 50 Seconds</td></tr>
-                <tr><td>SimpleRNN, 3 Layer, 128 Cell</td><td>0.03482</td><td>0.1182</td><td>21 Minutes 8 Seconds</td></tr>
+                <tr><td>Simple RNN, 2 Layer, 64 Cell</td><td>0.02484</td><td>0.0959</td><td>7 Minutes 22 Seconds</td></tr>
+                <tr><td>Simple RNN, 2 Layer, 128 Cell</td><td>0.02497</td><td>0.1249</td><td>10 Minutes 57 Seconds</td></tr>
+                <tr><td>Simple RNN, 3 Layer, 64 Cell</td><td>0.0338</td><td>0.1349</td><td>15 Minutes 50 Seconds</td></tr>
+                <tr><td>Simple RNN, 3 Layer, 128 Cell</td><td>0.03482</td><td>0.1182</td><td>21 Minutes 8 Seconds</td></tr>
                 <tr><td>LSTM, 2 Layer, 64 Cell</td><td>0.02912</td><td>0.103</td><td>15 Minutes 20 Seconds</td></tr>
                 <tr><td>LSTM, 2 Layer, 128 Cell</td><td>0.02567</td><td>0.09062</td><td>30 Minutes 0 Seconds</td></tr>
                 <tr><td>LSTM, 3 Layer, 64 Cell</td><td>0.03633</td><td>0.1082</td><td>28 Minutes 54 Seconds</td></tr>
@@ -273,13 +286,13 @@
                 <tr><td>Bi-Directional LSTM, 2 Layer, 128 Cell</td><td>0.03778</td><td>0.1285</td><td>41 Minutes 19 Seconds</td></tr>
                 <tr><td>Bi-Directional LSTM, 3 Layer, 64 Cell</td><td>0.03018</td><td>0.09699</td><td>44 Minutes 13 Seconds</td></tr>
                 <tr><td>Bi-Directional LSTM, 3 Layer, 128 Cell</td><td>0.03405</td><td>0.1081</td><td>25 Minutes 50 Seconds</td></tr>
-                <tr><td>Attention LSTM, 2 Layer, 64 Cell</td><td>0.0394</td><td>0.1276</td><td>21 Minutes 17 Seconds</td></tr>
-                <tr><td>Attention LSTM, 2 Layer, 128 Cell</td><td>0.04258</td><td>0.125</td><td>29 Minutes 21 Seconds</td></tr>
-                <tr><td>Attention LSTM, 3 Layer, 64 Cell</td><td>0.0418</td><td>0.1087</td><td>27 Minutes 42 Seconds</td></tr>
-                <tr><td>Attention LSTM, 3 Layer, 128 Cell</td><td>0.04056</td><td>0.1137</td><td>33 Minutes 32 Seconds</td></tr>
-                <tr><th>Total Training Time (Minutes)</th><td></td><td></td><th>528 Minutes 581 Seconds</th></tr>
-                <tr><th>Total Training Time (Hours)</th><td></td><td></td><th>8.96 Hours</th></tr>
-                <tr><th>Average Training Time (Minutes)</th><td></td><td></td><th>26 Minutes 53 Seconds</th></tr>
+                <tr><td>Bi-Directional GRU, 2 Layer, 64 Cell</td><td>0.0371</td><td>0.1199</td><td>10 Minutes 46 Seconds</td></tr>
+                <tr><td>Bi-Directional GRU, 2 Layer, 128 Cell</td><td>0.0322</td><td>0.1061</td><td>16 Minutes 21 Seconds</td></tr>
+                <tr><td>Bi-Directional GRU, 3 Layer, 64 Cell</td><td>0.0386</td><td>0.1285</td><td>16 Minutes 27 Seconds</td></tr>
+                <tr><td>Bi-Directional GRU, 3 Layer, 128 Cell</td><td>0.0330</td><td>0.1120</td><td>25 Minutes 4 Seconds</td></tr>
+                <tr><th>Total Training Time (Minutes)</th><td></td><td></td><th>485 Minutes 567 Seconds</th></tr>
+                <tr><th>Total Training Time (Hours)</th><td></td><td></td><th>8.24 Hours</th></tr>
+                <tr><th>Average Training Time (Minutes)</th><td></td><td></td><th>24 Minutes 43 Seconds</th></tr>
             </table>
         </div>
         <br>
@@ -287,19 +300,20 @@
         <div class="w3-container">
             <h3>Discussion</h3>
 
-            <h5>The more advanced architectures will not always do the best</h5>
+            <h5>The more advanced architectures do not converge the fastest</h5>
             <p>
                 In this experiment the simple 2 layer RNN with 64 cells per layer had the lowest mean squared error on the validation set.
                 This was very surprising as I had expected the newer/more advanced networks to very easily surpass the default RNN. 
                 This experiment shows it is pertinent to experiment with many different network types before settling on one.
-                Remember that there is no reason to assume the most modern networks will perform the best.
+                It might be the case though that the more advanced RNN cells are able to better generalize in the long run and 
+                simply converge slower than the more simple networks.
             </p>
 
             <h5>Training times don't increase much with complexity</h5>
             <p>
                 Running for only five epochs per experiment took nearly 9 hours of total compute time on an enterprise grade NVIDIA Quadro P4000 GPU.
-                These training sessions take a long time, but With the exception of the simple RNN, 
-                the majority of them take a very similar amount of time. This means that for the most
+                These training sessions take a long time, but with the exception of the Simple RNN, 
+                the majority of RNN types take a very similar amount of time. This means that for the most
                 part when training an RNN on a relatively small amount of time series data there should be little need to optimize for architectures with fast 
                 training times.
                 <table class="w3-table w3-striped w3-bordered w3-border">
@@ -311,7 +325,7 @@
                     <tr><td>LSTM</td><td>28.43 Minutes</td></tr>
                     <tr><td>GRU</td><td>28.89 Minutes</td></tr>
                     <tr><td>Bi-Directional LSTM</td><td>35.31 Minutes</td></tr>
-                    <tr><td>Attention LSTM</td><td>27.97 Minutes</td></tr>
+                    <tr><td>Bi-Directional GRU</td><td>27.97 Minutes</td></tr>
                 </table>
             </p>
 
@@ -320,15 +334,14 @@
                 Because of the cost to rent a cloud GPU I was only able to afford to run this experiment for a small amount of epochs.
                 Because of this, the experiment does not give prospective machine learning practitioners the full picture of the capabilities and 
                 downfalls of each RNN cell type on this type of problem set. It's possible that some architectures that performed badly here would've caught or 
-                even surpassed the well performing ones if given more epochs or training data. Because of this it is necessary to take these experimental results 
-                for what they are, experimental.
+                even surpassed the well performing ones if given more epochs or training data.
             </p>
 
             <h5>This problem may not have been well suited to all architecture types</h5>
             <p>
                 The more modern RNN architectures make use of different memory techniques to increase accuracy. Because of this, it is expected that in tasks
-                where the network needs to know relevant information from many different parts of the sequence, a simple RNN would do much worse than the 
-                other types of RNN cells experimented on here. It might be just coincidence that the simple RNNs outperformed all other architectures in this experiment
+                where the network needs to know relevant information from many different parts of the sequence, a Simple RNN would do much worse than the 
+                other types of RNN cells experimented on here. It might be just coincidence that the Simple RNNs outperformed all other architectures in this experiment
                 but it also may be that this test was most easily solvable by a network with no memory and a simple output heurestic. 
                 This further reinforces that in order to get the best model, practitioners should experiment with many different architecture types.
             </p>
@@ -339,19 +352,76 @@
         <!---->
 
         <div class="w3-container">
-            <h1>Test 2</h1>
+            <h1>Model Generalization on a Five Variable Regression (Experiment 2)</h1>
+            <p>
+                This experiment was designed to test how otherwise equivalent models using different RNN cell types generalize on a time series
+                dataset when training until a validation loss plateau.
+            </p>
         </div>
 
         <div class="w3-container">
-            <h3>Test 2 Methods</h3>
+            <h3>Dataset Details</h3>
+            <p>
+                This dataset is the same subset of the "Bitcoin Historical Data", from
+                <a href="https://www.kaggle.com/mczielinski/bitcoin-historical-data">Kaggle.com</a>
+                used in the first experiment but altered as explained below.
+            </p>
+            <br/>
+
+            <h5>Dataset generation</h5>
+            <p>
+                This dataset is generated in the same way as it was in <a href='#sequence-e1'>Experiment 1</a>
+                with several small alterations:
+                <ul>
+                    <li>The dataset now includes: 
+                        opening price, closing price, high price, low price, and volume.</li>
+                    <li>Input sequences are now 180 minutes instead of 30.</li>
+                    <li>The output is now a sequence of the next 30 minutes instead of a single data point 10 minutes into the future.</li>
+                    <li>The dataset is now generated using a script and stored in a .pickle file due to the dataset size. Find the script 
+                        <a href='https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/data-generator.py'>Here</a>.</li>
+                </ul>
+            </p>
         </div>
 
         <div class="w3-container">
-            <h3>Test 2 Results</h3>
+            <h3>Procedure</h3>
+            <p>
+                The procedure for this experiment was to test the generalization ability of the following RNN cell types: 
+                Simple RNNs, LSTMs, GRUs, Bi-Directional LSTMs, and Bi-Directional GRUs. This was done by training five identical
+                networks for 100 epochs where the only difference between each was the type of RNN cell used. The goal of each network is to predict the 
+                closing price for the next 30 minutes if given the opening price, closing price, high price, low price, and volume for each
+                of the last 180 minutes.
+            </p>
         </div>
 
         <div class="w3-container">
-            <h3>Test 2 Discussion</h3>
+            <h3>Methods</h3>
+            <p>
+                All five networks used the following architecture with different RNN cell types:
+                <ul>
+                    <li>1 RNN Cell Layer (of the specific type) with 180 Cells. Tanh activation. 50% Dropout. Batch normalization. L2 regularization at 0.01.</li>
+                    <li>1 Dense layer with 180 neurons. ReLu activation. 50% Dropout. Batch normalization. L2 regularization at 0.01.</li>
+                    <li>1 Dense output layer with 30 neurons. Linear activation. 50% Dropout. Batch normalization. L2 regularization at 0.01.</li>
+                </ul>
+
+                Each network used the following parameters and callbacks:
+                <ul>
+                    <li>Epochs: 100</li>
+                    <li>Batch Size: 64</li>
+                    <li>Optimizer: Adadelta: learning_rate=1.0, rho=0.95</li>
+                    <li>Loss function: Mean squared error</li>
+                    <li>Decrease learning rate by 40% for every 2 epochs that the validation loss doesn't decrease</li>
+                    <li>Stop early if the network doesn't improve validation loss for 6 epochs</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="w3-container">
+            <h3>Results</h3>
+        </div>
+
+        <div class="w3-container">
+            <h3>Discussion</h3>
         </div>
         <hr>
 
