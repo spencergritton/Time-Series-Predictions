@@ -73,10 +73,34 @@
         </div>
         <hr>
 
+        <div class="w3-container">
+            <h1 id="state-of-the-art">State of the Art</h1>
+            <p>
+                In order to begin working on this paper, it was necessary to research the current state of the art in financial time series regressions. 
+            </p>
+            <p>
+                The first report I read on this topic was "<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.742.3491&rep=rep1&type=pdf">A Neural Network Approach to Financial Forecasting</a>" written by: 
+                P. Enyindah and Onwuachu Uzochukwu C.
+                In this paper the authors are attempting to predict loan rates based on financial data using LSTM networks. Although Enyindah and Onwuachu 
+                aren't making the same types of predictions as this paper, their work helped me to further understand this area and gain an appreciation of what may 
+                be possible.
+            </p>
+            <p>
+                The next report I read was focused specifically on financial time series predictions on the S&P 500. This report was "<a href="http://www.diva-portal.org/smash/get/diva2:1213449/FULLTEXT01.pdf">The accuracy of the LSTM model for predicting the S&P 500 index 
+                    and the difference between prediction and backtesting</a>" written by: War Ahmed and Mehrdad Bahador.
+                This report focused on regression analysis on the S&P 500. These authors used an input sequence of the last 22 days to attempt to predict 
+                the next days closing price using 68 years worth of training data. In this paper the authors were able to train a netwok to complete 
+                this task with a mean squared error of 0.00056 on the testing set. Although the paper you are reading is focused on predicting 
+                output sequences on a minute by minute basis instead of individual values on a day by day basis, the paper written by Ahmed and Bahador 
+                highlighted the possibilites of this technique and what sort of results to strive for.
+            </p>
+        </div>
+        <hr>
+
         <!---->
 
         <div class="w3-container">
-            <h1>Convergence Rate on Two Variable Regression (Experiment 1)</h1>
+            <h1 id="experiment-1">Convergence Rate on Two Variable Regression (Experiment 1)</h1>
             <p>
                 This experiment was designed to explore if there is a clear choice in RNN network architecture on time series regressions in terms of convergence rate. 
                 The proposed benefit of this experiment is to give future machine learning practitioners a smaller subset of viable 
@@ -202,7 +226,7 @@
                             <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>32 neuron fully connected layer, ReLu activation, 20% dropout, batch normalization</li>
-                            <li>1 neuron fully connected layer, Linear activation, 20% dropout, batch normalization</li>
+                            <li>1 neuron fully connected layer, Linear activation.</li>
                         </ul>
                     </li>
                     <li>
@@ -211,7 +235,7 @@
                             <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>32 neuron fully connected layer, ReLu activation, 20% dropout, batch normalization</li>
-                            <li>1 neuron fully connected layer, Linear activation, 20% dropout, batch normalization</li>
+                            <li>1 neuron fully connected layer, Linear activation./li>
                         </ul>
                     </li>
                     <li>
@@ -221,7 +245,7 @@
                             <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>RNN with 64 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>32 neuron fully connected layer, ReLu activation, 20% dropout, batch normalization</li>
-                            <li>1 neuron fully connected layer, Linear activation, 20% dropout, batch normalization</li>
+                            <li>1 neuron fully connected layer, Linear activation.</li>
                         </ul>
                     </li>
                     <li>
@@ -231,7 +255,7 @@
                             <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>32 neuron fully connected layer, ReLu activation, 20% dropout, batch normalization</li>
-                            <li>1 neuron fully connected layer, Linear activation, 20% dropout, batch normalization</li>
+                            <li>1 neuron fully connected layer, Linear activation.</li>
                         </ul>
                     </li>
                 </ul>
@@ -352,7 +376,7 @@
         <!---->
 
         <div class="w3-container">
-            <h1>Model Generalization on a Five Variable Regression (Experiment 2)</h1>
+            <h1 id="experiment-2">Model Generalization on a Five Variable Regression (Experiment 2)</h1>
             <p>
                 This experiment was designed to test how otherwise equivalent models using different RNN cell types generalize on a time series
                 dataset when training until a validation loss plateau.
@@ -370,7 +394,7 @@
 
             <h5>Dataset generation</h5>
             <p>
-                This dataset is generated in the same way as it was in <a href='#sequence-e1'>Experiment 1</a>
+                This dataset is generated in the same way as it was in <a href='#experiment-1'>Experiment 1</a>
                 with several small alterations:
                 <ul>
                     <li>The dataset now includes: 
@@ -378,7 +402,7 @@
                     <li>Input sequences are now 180 minutes instead of 30.</li>
                     <li>The output is now a sequence of the next 30 minutes instead of a single data point 10 minutes into the future.</li>
                     <li>The dataset is now generated using a script and stored in a .pickle file due to the dataset size. Find the script 
-                        <a href='https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/data-generator.py'>Here</a>.</li>
+                        <a href='https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/data-generator.py'>here</a>.</li>
                 </ul>
             </p>
         </div>
@@ -401,7 +425,7 @@
                 <ul>
                     <li>1 RNN Cell Layer (of the specific type) with 180 Cells. Tanh activation. 50% Dropout. Batch normalization. L2 regularization at 0.01.</li>
                     <li>1 Dense layer with 180 neurons. ReLu activation. 50% Dropout. Batch normalization. L2 regularization at 0.01.</li>
-                    <li>1 Dense output layer with 30 neurons. Linear activation. 50% Dropout. Batch normalization. L2 regularization at 0.01.</li>
+                    <li>1 Dense output layer with 30 neurons. Linear activation.</li>
                 </ul>
 
                 Each network used the following parameters and callbacks:
@@ -411,17 +435,389 @@
                     <li>Optimizer: Adadelta: learning_rate=1.0, rho=0.95</li>
                     <li>Loss function: Mean squared error</li>
                     <li>Decrease learning rate by 40% for every 2 epochs that the validation loss doesn't decrease</li>
-                    <li>Stop early if the network doesn't improve validation loss for 6 epochs</li>
+                    <li>Stop early if the network doesn't improve validation loss for 6 epochs (this was necessary due to the cost of training these networks)</li>
+                    <li>Keras, Tensorflow, and Python random parameters were set to the same seeds to test these networks using the exact 
+                        same training process
+                    </li>
                 </ul>
+            </p>
+            <p style="white-space: pre-line;">Detailed layer by layer information for each network listed here:
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/architectures/SimpleRNN.md"><u>Simple RNN</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/architectures/LSTM.md"><u>LSTM</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/architectures/GRU.md"><u>GRU</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/architectures/Bi-DirectionalLSTM.md"><u>Bi-Directional LSTM</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/architectures/Bi-DirectionalGRU.md"><u>Bi-Directional GRU</u></a>
+            </p>
+            <p>
+
+            </p>
+            <p style="white-space: pre-line;">Code for dataset generation located here:
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/data-generator.py"><u>Data-Generator</u></a>
+
+                Code for model creation and training located here:
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/SimpleRNN.py"><u>Simple RNN Code</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/LSTM.py"><u>LSTM Code</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/GRU.py"><u>GRU Code</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/BiDirectionalLSTM.py"><u>Bi-Directional LSTM Code</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/BiDirectionalGRU.py"><u>Bi-Directional GRU Code</u></a>
             </p>
         </div>
 
         <div class="w3-container">
             <h3>Results</h3>
+            <p>
+                The results of training all five different networks with the above given parameters are given below.
+            </p>
+
+            <table class="w3-table w3-striped w3-bordered w3-border">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Validation Loss (MSE)</th>
+                        <th>Validation Mae</th>
+                        <th>Epochs Scheduled</th>
+                        <th>Epochs Ran</th>
+                        <th>Training Time (Minutes)</th>
+                    </tr>
+            </thead>
+                <tbody>
+                    <tr>
+                        <td>BiDirectionalLSTM-180-30</td>
+                        <td >0.005633137</td>
+                        <td >0.038524002</td>
+                        <td >250</td>
+                        <td >35</td>
+                        <td >13.83588647</td>
+                    </tr>
+                    <tr>
+                        <td>LSTM-180-30</td>
+                        <td >0.003990279</td>
+                        <td >0.029511815</td>
+                        <td >250</td>
+                        <td >44</td>
+                        <td >15.61718321</td>
+                    </tr>
+                    <tr>
+                        <td>SimpleRNN-180-30</td>
+                        <td >0.003379579</td>
+                        <td >0.028238779</td>
+                        <td >250</td>
+                        <td >117</td>
+                        <td >17.21951702</td>
+                    </tr>
+                    <tr>
+                        <td>GRU-180-30</td>
+                        <td >0.003008778</td>
+                        <td >0.025924904</td>
+                        <td >250</td>
+                        <td >128</td>
+                        <td >32.34058838</td>
+                    </tr>
+                    <tr>
+                        <td>BiDirectionalGRU-180-30</td>
+                        <td >0.010775859</td>
+                        <td >0.03390241</td>
+                        <td >250</td>
+                        <td >44</td>
+                        <td >10.26025866</td>
+                    </tr>
+                    <tr>
+                        <th>Total Training Time</th>
+                        <td ></td><td ></td><td ></td><td ></td><td >89.27343374</td>
+                    </tr>
+                </tbody>
+            </table>
+            <br/>
+
+            <div class="w3-center">
+                <h3>Training Process Visualized</h3>
+            </div>
+
+            <div class="w3-half w3-center">
+                <h5>Simple RNN</h5>
+                <img style="width: 70%;" 
+                    src="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/plots/SimpleRNN-180-30.png?raw=true" 
+                    alt="Simple RNN">
+            </div>
+            <div class="w3-half w3-center">
+                <h5>LSTM</h5>
+                <img style="width: 70%;" 
+                    src="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/plots/LSTM-180-30.png?raw=true" 
+                    alt="LSTM">
+            </div>
+            <div class="w3-half w3-center">
+                <h5>GRU</h5>
+                <img style="width: 70%;" 
+                    src="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/plots/GRU-180-30.png?raw=true" 
+                    alt="GRU">
+            </div>
+            <div class="w3-half w3-center">
+                <h5>Bi-Directional LSTM</h5>
+                <img style="width: 70%;" 
+                    src="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/plots/BiDirectionalLSTM-180-30.png?raw=true" 
+                    alt="Bi-Directional LSTM">
+            </div>
+            <div class="w3-center">
+                <h5>Bi-Directional GRU</h5>
+                <img style="width: 40%;" 
+                    src="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-2/plots/BiDirectionalGRU-180-30.png?raw=true" 
+                    alt="Bi-Directional GRU">
+            </div>
         </div>
 
         <div class="w3-container">
             <h3>Discussion</h3>
+            <h5>All Networks Reacted Similarly to the Data</h5>
+            <p>
+                Because the random seeds in Keras and Tensorflow were set to the same for each experiment the training process was the 
+                exact same for all five networks. If you look closely at the graphs above you will be able to see this. When validation loss 
+                increases in one graph it tends to increase in the others at different scales. 
+            </p>
+            <br>
+
+            <h5>Bi-Directional Networks Performed the Worst</h5>
+            <p>
+                Similar to experiment 1, the bi-directional networks performed the worst in terms of validation loss. This is interesting because 
+                the common expectation would be that with access to more information the networks would improve and yet that is not the case. 
+                The reason for this is unclear but leads to several possibilites:
+                <ul>
+                    <li>Bi-Directional networks are not as well suited as others for financial time series regressions.</li>
+                    <li>These specific network architectures are not very deep. It's possible bi-directional RNN cells would perform better 
+                        in a deeper network.
+                    </li>
+                    <li>The networks were stopped early if they stopped showing progress due to cost limitations. If these limitations were 
+                        not in place it may be the case that the bi-directional networks would have continued to learn and out perform the other 
+                        networks.
+                    </li>
+                </ul>
+            </p>
+            <br/>
+
+            <h5>LSTM, GRU, and Simple RNN Networks Performed the Best</h5>
+            <p>
+                These networks did the best in the experiment but there are several key differences between them:
+                <ol>
+                    <li>The LSTM network trained for nearly 80 less epochs than the other two networks.</li>
+                    <li>The GRU network trained for twice as long as the other networks.</li>
+                    <li>The Simple RNN network did just as well as the other two networks, much like in experiment 1.</li>
+                </ol>
+            </p>
+            <br/>
+
+            <h5>The Simple RNN Network Performed Very Well</h5>
+            <p>
+                The most interesting thing to take away from this experiment is that the simple RNN network did just as well as the others 
+                and trained at a much faster epoch / minute speed than any other network type. Using the results from experiment 1 and 2 combined 
+                it seems that using a simple RNN may be the best option for a neural network with a low amount of layers doing a time series 
+                regression.
+            </p>
+            <p>
+                In <a href="#experiment-3">experiment 3</a> deeper RNN networks are tested against each other using a dataset 15 times as large as 
+                what was used for this experiment. This is to test if simple RNNs are superior for all financial time series regressions or if they 
+                simply perform well with a low amount of data and somewhat shallow network design.
+            </p>
+        </div>
+        <hr>
+
+        <!---->
+
+        <div class="w3-container">
+            <h1 id="experiment-3">Deep Model Generalization on a Seven Variable Regression (Experiment 3)</h1>
+            <p>
+                This experiment was designed to test how different RNN cell types would generalize when using a very large dataset 
+                and deeper network architectures. This experiment was specifically added to the project to test if simple RNNs were clearly 
+                superior to other RNN cell types in terms of their training time to validation accuracy ratio on this sort of problem set 
+                or if the other cell types simply needed more data and/or training time.
+            </p>
+        </div>
+
+        <div class="w3-container">
+            <h3>Dataset Details</h3>
+            <p>
+                This dataset is the entire coinbase section of "Bitcoin Historical Data", from
+                <a href="https://www.kaggle.com/mczielinski/bitcoin-historical-data">Kaggle.com</a>.
+                Unlike the previous two experiments, this experiment uses all 1,000,000 rows of the dataset as input and considers 
+                all seven given data features.
+            </p>
+            <p>
+                Note:
+                <ul>
+                    <li>The input sequences to this network are the last 180 minutes of bitcoin data where each minute has seven features: 
+                        opening price, closing price, high price, low price, volume in bitcoin, volume in dollars, and weighted price.
+                    </li>
+                    <li>The output sequences of this network are the next 30 minutes of closing price data (these are normalized using 
+                        the datasets normalization for closing price).
+                    </li>
+                </ul>
+            </p>
+            <br/>
+
+            <h5>Dataset generation</h5>
+            <p>
+                This dataset is generated in the same way as it was in <a href='#experiment-2'>Experiment 2</a>
+                with several small alterations:
+                <ul>
+                    <li>The dataset now includes: 
+                        volume in Bitcoin (this was the volume category in experiment 1 and 2), volume in dollars, and weighted price.</li>
+                    <li>The dataset is now generated using an improved script for efficiency. It is located 
+                        <a href='https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/data-generator.py'>here</a>.</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="w3-container">
+            <h3>Procedure</h3>
+            <p>
+                The procedure for this experiment was to test how different RNN cell types would generalize to a financial time series regression 
+                when given a large dataset, ample time to train, and a deeper network architecture. This was done by training 3 identitical networks 
+                for 250 epochs on a large multi-year dataset where the only difference in the networks are their RNN cell types. The goal of each of 
+                these networks is to take the last 180 minutes of bitcoin data (in the seven features listed above) and output a sequence of the next 
+                30 minutes of bitcoin closing prices.
+            </p>
+            <p>
+                The three networks used for this experiment were:
+                <ul>
+                    <li>A deep network of stacked simple RNN cells</li>
+                    <li>A deep network of stacked LSTM and GRU cells</li>
+                    <li>A deep network of stacked Bi-Directional LSTM and GRU cells</li>
+                </ul>
+            </p>
+        </div>
+
+        <div class="w3-container">
+            <h3>Methods</h3>
+            <p>
+                All three networks used the following architecture with different RNN cell types:
+                <ul>
+                    <li>1 RNN Cell Layer (of the specific type) with 180 Cells. Tanh activation. 50% Dropout. Batch normalization. L2 regularization at 0.01.</li>
+                    <li>1 RNN Cell Layer (of the specific type) with 180 Cells. Tanh activation. 50% Dropout. Batch normalization. L2 regularization at 0.01.</li>
+                    <li>1 Dense layer with 1,800 neurons. ReLu activation. 50% Dropout. Batch normalization. L2 regularization at 0.01.</li>
+                    <li>1 Dense layer with 180 neurons. ReLu activation. 50% Dropout. Batch normalization. L2 regularization at 0.01.</li>
+                    <li>1 Dense output layer with 30 neurons. Linear activation.</li>
+                </ul>
+
+                Each network used the following parameters and callbacks:
+                <ul>
+                    <li>Epochs: 250</li>
+                    <li>Batch Size: 256</li>
+                    <li>Optimizer: Adadelta: learning_rate=1.0, rho=0.95</li>
+                    <li>Loss function: Mean squared error</li>
+                    <li>Decrease learning rate by 40% for every 6 epochs that the validation loss doesn't decrease</li>
+                    <li>Stop early if the network doesn't improve validation loss for 30 epochs (this was necessary due to the cost of training these networks)</li>
+                    <li>Keras, Tensorflow, and Python random parameters were set to the same seeds to test these networks using the exact 
+                        same training process
+                    </li>
+                </ul>
+            </p>
+            <p style="white-space: pre-line;">Detailed layer by layer information for each network listed here:
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/architectures/SimpleRNN.md"><u>Simple RNN</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/architectures/LSTM-GRU.md"><u>LSTM-GRU</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/architectures/Bi-Directional-LSTM-GRU.md"><u>Bi-Directional LSTM-GRU</u></a>
+            </p>
+            <p>
+
+            </p>
+            <p style="white-space: pre-line;">Code for dataset generation located here:
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/data-generator.py"><u>Data-Generator</u></a>
+
+                Code for model creation and training located here:
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/SimpleRNN.py"><u>Simple RNN Code</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/LSTM-GRU.py"><u>LSTM-GRU Code</u></a>
+                <a href="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/BiDirectional-LSTM-GRU.py"><u>Bi-Directional LSTM-GRU Code</u></a>
+            </p>
+        </div>
+
+        <div class="w3-container">
+            <h3>Results</h3>
+            <p>
+                The results of training all three different networks with the above parameters are given below.
+            </p>
+            <table class="w3-table w3-striped w3-bordered w3-border">
+                <thead><tr><th title="Field #1">Name</th>
+                <th title="Field #2">Validation Loss (MSE)</th>
+                <th title="Field #3">Validation Mae</th>
+                <th title="Field #4">Epochs Scheduled</th>
+                <th title="Field #5">Epochs Ran</th>
+                <th title="Field #6">Training Time (Minutes)</th>
+                </tr></thead>
+                <tbody>
+                    <tr>
+                        <td>LSTM-GRU</td>
+                        <td>0.15191308</td>
+                        <td>0.23991394</td>
+                        <td>250</td>
+                        <td>34</td>
+                        <td>177.5106781</td>
+                    </tr>
+                <tr>
+                    <td>Bidirectional-LSTM-GRU</td>
+                    <td>0.067635128</td>
+                    <td>0.129869357</td>
+                    <td>250</td>
+                    <td>63</td>
+                    <td>450.9644763</td>
+                </tr>
+                <tr>
+                    <td>SimpleRNN</td>
+                    <td>1.056928001</td>
+                    <td>0.642972946</td>
+                    <td>250</td>
+                    <td>36</td>
+                    <td>114.1520359</td>
+                </tr>
+                <tr>
+                    <th>Total Training Time</th>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>742.62</td>
+                </tr>
+                </tbody></table>
+
+            <div class="w3-center">
+                <h3>Training Process Visualized</h3>
+            </div>
+
+            <div class="w3-half w3-center">
+                <h5>Simple RNN</h5>
+                <img style="width: 70%;" 
+                    src="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/plots/SimpleRNN-250.png?raw=true" 
+                    alt="Simple RNN">
+            </div>
+            <div class="w3-half w3-center">
+                <h5>LSTM-GRU</h5>
+                <img style="width: 70%;" 
+                    src="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/plots/LSTM-GRU-250.png?raw=true" 
+                    alt="LSTM-GRU">
+            </div>
+        </div>
+        <div class="w3-center">
+            <h5>Bi-Directional LSTM-GRU</h5>
+            <img style="width: 40%;" 
+                src="https://github.com/spencergritton/Time-Series-Predictions/blob/master/experiment-3/plots/Bidirectional-LSTM-GRU-250.png?raw=true" 
+                alt="BiDirectional-LSTM-GRU">
+        </div>
+
+        <div class="w3-container">
+            <h3>Discussion</h3>
+            <h5>The Simple RNN Network Performed Poorly</h5>
+            <p>
+                Although the simple RNN cell networks performed very well in experiments 1 and 2 it performed exceptionally poorly in this experiment.
+                The simple RNN network did 15X worse than the bi-directional lstm-gru network and about 7X worse than the lstm-gru network when compared 
+                based on mean squared error. This is contradictory to the findings of <a href="experiment-2">experiment 2</a> where the simple RNN network 
+                performed just as well or better than the other network types.
+            </p>
+            <br/>
+
+            <h5>The Bi-Directional Network Surpassed Expectations</h5>
+            <p>
+                In all previous experiments the bi-directional networks had some of the worst results, but in this experiment the network has the best results 
+                by a large margin. Experiment 1 was focused on convergence speed and experiment 2 was focused on using a shallow network to generalize on 
+                a small dataset. Past experiments showed evidence that bi-directional networks converge more slowly than other RNN cell type networks and 
+                that they also don't generalize well on small datasets. This experiment shows evidence that although bi-directional networks converge slowly 
+                they are able to learn more complex features from large datasets and generalize that learning better than other network types.
+            </p>
         </div>
         <hr>
 
@@ -429,11 +825,118 @@
 
         <div class="w3-container">
             <h1>Conclusions</h1>
+            <p>
+                The purpose of this paper was to explore the efficacy of using recurrent neural networks to make regressions on time series financial data and 
+                see if there is an RNN cell type or types that produce superior results for this type of analysis.
+            </p>
+            <br>
+
+            <h5>Convergence Rate on Two Variable Regression (Experiment 1)</h5>
+            <p>
+                This experiment showed that when training a relatively shallow network on a small dataset all RNN cell types are able to converge. It also led 
+                to some surprising discoveries:
+                <ul>
+                    <li>Bi-Directional networks converge much slower than the networks using other RNN cell types in this task.</li>
+                    <li>Networks using simple RNN cells converge quickly and have the same or better accuracy as all other RNN cell types in this task.</li>
+                </ul>
+            </p>
+            <br>
+
+            <h5>Model Generalization on a Five Variable Regression (Experiment 2)</h5>
+            <p>
+                This experiment was designed to test how each RNN cell type would perform when expected to output a sequence instead of a single value and 
+                when the networks were given much more time to train. This experiment showed the following:
+                <ul>
+                    <li>Bi-Directional networks performed the worst at this task when compared to the other network types.</li>
+                    <li>Much like experiment 1, simple RNN networks performed surprisingly well and trained very quickly.</li>
+                    <li>LSTM and GRU networks performed well but this is as expected.</li>
+                </ul>
+                Once again this experiment surprised me as the simple RNN network did much better than both Bi-Directional networks and was competitive with 
+                both the LSMT and GRU network. My hypothesis is that given: a relatively shallow network size, low amounts of data, and 
+                the early stopping conditions of this experiment that the Bi-Directional networks either didn't have enough data or time to learn and generalize. 
+                Experiment 3 was created to gain insight on this as the results did not meet my expectations.
+            </p>
+            <br>
+
+            <h5>Deep Model Generalization on a Seven Variable Regression (Experiment 3)</h5>
+            <p>
+                This experiment was designed to test how the following network types generalized and converged when training on a large dataset and a deeper network 
+                architecture: simple RNNs, LSTM/GRU combinations, and bi-directional LSTM/GRU combinations. This experiment showed drastically different results than 
+                the previous two experiments:
+                <ul>
+                    <li>Bi-Directional networks performed far better than any other network type.</li>
+                    <li>Simple RNN networks performed far worse than the other networks.</li>
+                </ul>
+                These results were more in line with my expectations but did not necessarily agree with the previous two experiments. My hypothesis is that 
+                in order to take advantage of the benefits of Bi-Directional and/or memory cells like GRU and LSTM, the network must be sufficiently deep and/or be 
+                trained with a large amount of data. This is show cased by the staggering differences in results from experiment 1 and 2 to experiment 3.
+            </p>
+            <br>
+
+            <h5>Experimental Results</h5>
+            <p>
+                When training the networks to take as input the last 180 minutes of data and output the next 30 minutes of closing price on a large data set I was 
+                able to achieve a mean squared error (MSE) of 0.003008778 when using a small dataset and 0.067635128 when using an extremely large dataset.
+            </p>
+            <p>
+                In the <a href="#state-of-the-art">State of the Art</a> section of the paper it was shown that authors War Ahmed and Mehrdad Bahador 
+                were able to achieve a MSE of 0.00056 when predicting next day closing price of the S&P 500 from an input of the last 22 days of S&P price 
+                and volume data. Although these results are not comparable at all, it is interesting to note that their MSE of 
+                0.00056 * 30 days = 0.0168, which is between the MSEs of the two best networks I was able to produce.
+            </p>
+            <br>
+
+            <h5>Final Thoughts</h5>
+            <p>
+                These experiments were first and foremost opportunities for me to learn more about deep learning and recurrent neural networks in specific. 
+                Although they were not exhaustive and may contain flaws they provided me with a great opportunity to learn at the time of their creation, and 
+                for that I'm thankful.
+            </p>
+            <p>
+                Given my experimental results I offer the following advice in terms of what RNN cell should be used in what situation:
+                <ul>
+                    <li>If you're looking for a quickly trainable baseline, use a simple RNN cell network. It may perform far worse than other LSTM cells 
+                        but it will give you an idea of what your baseline results may be and if there are any glaring issues to be solved before engaging in 
+                        longer training time experiments.
+                    </li>
+                    <li>Bi-Directional networks seem to perform best if given a lot of data and ample training time. This is supported both by experiment 3 
+                        and the paper by Ahmed and Bahador in the <a href="#state-of-the-art">State of the Art</a> section of the paper.
+                    </li>
+                    <li>LSTMs and GRUs always seem to perform adequately (somewhere between the middle and top of the pack). These networks are a nice balance 
+                        between training time and accracy as compared to Bi-Directional and simple RNN networks.
+                    </li>
+                    <li>One size does not fit all. As shown through my experiments there is clearly not one cell type that works best in all sitautions.
+                        Try things out and see what works for your dataset and model architecture.</li>
+                </ul>
+            </p>
+            <br>
+
+            <p>
+                Thank you all for taking the time to read this research report. A lot of time was put into this project and although it is far from perfect 
+                it was a great experience.
+            </p>
         </div>
         <hr>
 
         <div class="w3-container">
             <h1>Acknowledgements</h1>
+            <p><a href="https://www.youtube.com/user/sentdex">Sentdex</a> - I must put out a huge thank you to this user from YouTube for their 
+                comprehensive and well thought out tutorials on deep learning. Experiment 1 used a bit of code from Sentdex and I wouldn't have been able to make 
+                nearly as much progress in this project without their various tutorials.
+            </p>
+            <p><a href="https://cmdlinetips.com/2019/10/how-to-make-a-plot-with-two-different-y-axis-in-python-with-matplotlib/">cmdlinetips.com</a> - This website was hugely helpful in my learning to plot the results from these experiments into useful formats.
+            </p>
+            <p><a href="https://stackoverflow.com">stackoverflow.com</a> - An invaluable resource for programming questions and everything else.
+            </p>
+            <p>
+                <a href="https://keras.io/">Keras</a> and <a href="https://www.tensorflow.org/">Tensorflow</a> - Without which this project would have taken many more hours.
+            </p>
+            <p>
+                <a href="https://www.paperspace.com/">paperspace.com</a> - For providing cost effective cloud computing resources to train and test models.
+            </p>
+            <p>
+                <a href="https://homepage.cs.uiowa.edu/~hzhang/">Professor Hantao Zhang</a> - For teaching this class well, even as it moved online.
+            </p>
         </div>
         <hr>
 
