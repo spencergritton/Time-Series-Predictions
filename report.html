@@ -55,28 +55,23 @@
         </div>
 
         <div class="w3-container">
-            <h1>Abstract</h1>
-            <p>
-                This report is an examination and comparison of popular recurrent neural network (RNN) 
-                architectures when used on two multi-variable time series regressions.
-                Simple RNNs, LSTMs, GRUs, Bi-Directional LSTMs, and Bi-Directional GRUs
-            </p>
-        </div>
-        <hr>
-
-        <div class="w3-container">
             <h1>Introduction</h1>
             <p>
-                Explain experiments, what usefulness they have, the whole point of this experiment is 
-                to try to see if there is an ideal RNN architecture for financial time series predictions
+                This report is an examination and comparison of popular recurrent neural network (RNN) 
+                cell types and their efficacy in regression analysis on time series financial data. 
+                The purpose of this report is to give normal machine learning practitioners a better idea of 
+                what RNN cells are best used for which tasks with the hope that this will reduce total training 
+                times for these individuals. This report consists 
+                of three experiments designed to test the following RNN cell types in a variety of regression tasks: 
+                Simple RNN, LSTM, GRU, Bi-Directional LSTM, Bi-Directional GRU.
             </p>
         </div>
         <hr>
 
         <div class="w3-container">
-            <h1 id="state-of-the-art">State of the Art</h1>
+            <h1 id="related-work">Related Work</h1>
             <p>
-                In order to begin working on this paper, it was necessary to research the current state of the art in financial time series regressions. 
+                In order to begin working on this research, it was necessary to research the current work in financial time series regressions. 
             </p>
             <p>
                 The first report I read on this topic was "<a href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.742.3491&rep=rep1&type=pdf">A Neural Network Approach to Financial Forecasting</a>" written by: 
@@ -93,6 +88,15 @@
                 this task with a mean squared error of 0.00056 on the testing set. Although the paper you are reading is focused on predicting 
                 output sequences on a minute by minute basis instead of individual values on a day by day basis, the paper written by Ahmed and Bahador 
                 highlighted the possibilites of this technique and what sort of results to strive for.
+            </p>
+            <br/>
+
+            <h5>Comparison Between this Report and Related Works</h5>
+            <p>
+                In the majority of work in this area the papers are focused solely on achieving state of the art results 
+                in their specific regression task. This research is instead focused on helping everyday practitioners 
+                to choose the best RNN cell type for the task. This goal is accomplished by testing each RNN cell type in 
+                a variety of ways to see how they best apply to a wide range of tasks.
             </p>
         </div>
         <hr>
@@ -879,12 +883,23 @@
                 able to achieve a mean squared error (MSE) of 0.003008778 when using a small dataset and 0.067635128 when using an extremely large dataset.
             </p>
             <p>
-                In the <a href="#state-of-the-art">State of the Art</a> section of the paper it was shown that authors War Ahmed and Mehrdad Bahador 
+                In the <a href="#related-work">Related Work</a> section of the paper it was shown that authors War Ahmed and Mehrdad Bahador 
                 were able to achieve a MSE of 0.00056 when predicting next day closing price of the S&P 500 from an input of the last 22 days of S&P price 
                 and volume data. Although these results are not comparable at all, it is interesting to note that their MSE of 
                 0.00056 * 30 days = 0.0168, which is between the MSEs of the two best networks I was able to produce.
             </p>
             <br>
+
+            <h5>Next Steps</h5>
+            <p>
+                Given more time and ample training resources I would like to continue this research while experimenting 
+                with many more neural network types, data sets, network architectures, and hyper parameter changes. 
+                Increasing the scope of these experiments vastly is the only way to really give practitioners a good 
+                idea of the pros and cons of each specific RNN type. I would specifically like to start experimenting with 
+                encoder-decoder network types and their unique variants (seq2seq, autoencoder, etc.). Unfortunately, I don't currently possess the 
+                resources (a GPU and/or the capital to rent a GPU) to proceed with these experiments.
+            </p>
+            <br/>
 
             <h5>Final Thoughts</h5>
             <p>
@@ -900,7 +915,7 @@
                         longer training time experiments.
                     </li>
                     <li>Bi-Directional networks seem to perform best if given a lot of data and ample training time. This is supported both by experiment 3 
-                        and the paper by Ahmed and Bahador in the <a href="#state-of-the-art">State of the Art</a> section of the paper.
+                        and the paper by Ahmed and Bahador in the <a href="#related-work">Related Work</a> section of the paper.
                     </li>
                     <li>LSTMs and GRUs always seem to perform adequately (somewhere between the middle and top of the pack). These networks are a nice balance 
                         between training time and accracy as compared to Bi-Directional and simple RNN networks.
