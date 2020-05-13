@@ -1,5 +1,5 @@
 # Website
-Pleae view the official project report for this repository here: https://spencergritton.github.io/Time-Series-Predictions/
+Please view the official project report for this repository here: https://spencergritton.github.io/Time-Series-Predictions/
 
 # Introduction
 Welcome to my final project for CS:5980:002 Deep Learning at the University of Iowa.

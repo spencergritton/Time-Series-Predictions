@@ -45,6 +45,7 @@ def addTargets(df):
     df['Target'] = df[f"Close"].shift(-FUTURE_MINUTE_TO_PREDICT)
     return cleanData(df)
 
+# Split train and test code taken from: https://www.youtube.com/sentdex
 def splitTrainAndTest(df):
     dateValues = df.index.values
     last_x_pct = dateValues[-int((1-TRAIN_PERCENT)*len(dateValues))]
@@ -62,6 +63,7 @@ def normalize(df):
     result.fillna(mean, inplace=True)
     return result
 
+# getXandY code partially taken from https://www.youtube.com/sentdex
 def getXandY(df):
     df = normalize(df)
     
