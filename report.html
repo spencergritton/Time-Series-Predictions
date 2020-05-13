@@ -62,8 +62,8 @@
                 The purpose of this report is to give normal machine learning practitioners a better idea of 
                 what RNN cells are best used for which tasks with the hope that this will reduce total training 
                 times for these individuals. This report consists 
-                of three experiments designed to test the following RNN cell types in a variety of regression tasks: 
-                Simple RNN, LSTM, GRU, Bi-Directional LSTM, Bi-Directional GRU.
+                of three experiments designed to test the following RNN cell types in a variety of financial regression tasks: 
+                Simple RNN, LSTM, GRU, Bi-Directional LSTM, and Bi-Directional GRU.
             </p>
         </div>
         <hr>
@@ -85,9 +85,10 @@
                     and the difference between prediction and backtesting</a>" written by: War Ahmed and Mehrdad Bahador.
                 This report focused on regression analysis on the S&P 500. These authors used an input sequence of the last 22 days to attempt to predict 
                 the next days closing price using 68 years worth of training data. In this paper the authors were able to train a netwok to complete 
-                this task with a mean squared error of 0.00056 on the testing set. Although the paper you are reading is focused on predicting 
+                this task with a mean squared error of 0.00056 on the testing set. Although the report you are reading is focused on predicting 
                 output sequences on a minute by minute basis instead of individual values on a day by day basis, the paper written by Ahmed and Bahador 
-                highlighted the possibilites of this technique and what sort of results to strive for.
+                highlighted the possibilites of using neural networks to make time series regressions and what sort of results 
+                to strive for.
             </p>
             <br/>
 
@@ -96,7 +97,7 @@
                 In the majority of work in this area the papers are focused solely on achieving state of the art results 
                 in their specific regression task. This research is instead focused on helping everyday practitioners 
                 to choose the best RNN cell type for the task. This goal is accomplished by testing each RNN cell type in 
-                a variety of ways to see how they best apply to a wide range of tasks.
+                a variety of ways to see how they best apply to a range of tasks.
             </p>
         </div>
         <hr>
@@ -108,7 +109,7 @@
             <p>
                 This experiment was designed to explore if there is a clear choice in RNN network architecture on time series regressions in terms of convergence rate. 
                 The proposed benefit of this experiment is to give future machine learning practitioners a smaller subset of viable 
-                RNN architectures to work with in order to reduce the time commitment to generate the best possible models.
+                RNN architectures to work with that will converge quickly while still producing viable results.
             </p>
         </div>
 
@@ -191,15 +192,6 @@
                 Note: The above is an example of the generation of just one sequence. This dataset contained 97,774 rows of data.
                 This means that roughly 97,744 sequences were generated for the inputs and outputs of this set.
             </p>
-            <br>
-
-            <h5>Balancing the Data</h5>
-            <p>
-                The research paper: <a href="https://arxiv.org/abs/1710.05381"><u>"A systematic study of the class imbalance problem
-                    in convolutional neural networks"</u></a> by Buda, Maki, and Mazurowski makes it clear that there is a benefit
-                to balancing your dataset in most non-regression machine learning tasks. The paper was very beneficial
-                to my understanding of neural networks but because this is a regression task the data was not balanced.
-            </p>
         </div>
 
         <div class="w3-container">
@@ -215,9 +207,6 @@
 
         <div class="w3-container">
             <h3>Methods</h3>
-            <p>
-                Each network was built using Tensorflow/Keras.
-            </p>
             <p>
                 For each RNN type (Simple RNN, LSTM, GRU, Bi-Directional LSTM, and Bi-Directional GRU), four networks were created and trained, 
                 combining to 20 trained networks.
@@ -239,7 +228,7 @@
                             <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>RNN with 128 cells, Tanh activation, 20% dropout, batch normalization</li>
                             <li>32 neuron fully connected layer, ReLu activation, 20% dropout, batch normalization</li>
-                            <li>1 neuron fully connected layer, Linear activation./li>
+                            <li>1 neuron fully connected layer, Linear activation.</li>
                         </ul>
                     </li>
                     <li>
@@ -357,21 +346,14 @@
                 </table>
             </p>
 
-            <h5>This experiment ran for a low number of epochs</h5>
-            <p>
-                Because of the cost to rent a cloud GPU I was only able to afford to run this experiment for a small amount of epochs.
-                Because of this, the experiment does not give prospective machine learning practitioners the full picture of the capabilities and 
-                downfalls of each RNN cell type on this type of problem set. It's possible that some architectures that performed badly here would've caught or 
-                even surpassed the well performing ones if given more epochs or training data.
-            </p>
-
             <h5>This problem may not have been well suited to all architecture types</h5>
             <p>
                 The more modern RNN architectures make use of different memory techniques to increase accuracy. Because of this, it is expected that in tasks
                 where the network needs to know relevant information from many different parts of the sequence, a Simple RNN would do much worse than the 
                 other types of RNN cells experimented on here. It might be just coincidence that the Simple RNNs outperformed all other architectures in this experiment
                 but it also may be that this test was most easily solvable by a network with no memory and a simple output heurestic. 
-                This further reinforces that in order to get the best model, practitioners should experiment with many different architecture types.
+                This experiment has provided some evidence that the simple RNN cell type is the best choice for quick training times 
+                and acceptable results in a somewhat simple use case.
             </p>
 
         </div>
@@ -486,14 +468,14 @@
             </thead>
                 <tbody>
                     <tr>
-                        <td>BiDirectionalLSTM-180-30</td>
-                        <td >0.005633137</td>
-                        <td >0.038524002</td>
-                        <td >250</td>
-                        <td >35</td>
-                        <td >13.83588647</td>
-                    </tr>
-                    <tr>
+                        <tr>
+                            <td>SimpleRNN-180-30</td>
+                            <td >0.003379579</td>
+                            <td >0.028238779</td>
+                            <td >250</td>
+                            <td >117</td>
+                            <td >17.21951702</td>
+                        </tr>
                         <td>LSTM-180-30</td>
                         <td >0.003990279</td>
                         <td >0.029511815</td>
@@ -502,20 +484,20 @@
                         <td >15.61718321</td>
                     </tr>
                     <tr>
-                        <td>SimpleRNN-180-30</td>
-                        <td >0.003379579</td>
-                        <td >0.028238779</td>
-                        <td >250</td>
-                        <td >117</td>
-                        <td >17.21951702</td>
-                    </tr>
-                    <tr>
                         <td>GRU-180-30</td>
                         <td >0.003008778</td>
                         <td >0.025924904</td>
                         <td >250</td>
                         <td >128</td>
                         <td >32.34058838</td>
+                    </tr>
+                    <tr>
+                        <td>BiDirectionalLSTM-180-30</td>
+                        <td >0.005633137</td>
+                        <td >0.038524002</td>
+                        <td >250</td>
+                        <td >35</td>
+                        <td >13.83588647</td>
                     </tr>
                     <tr>
                         <td>BiDirectionalGRU-180-30</td>
@@ -746,6 +728,14 @@
                 </tr></thead>
                 <tbody>
                     <tr>
+                        <td>SimpleRNN</td>
+                        <td>1.056928001</td>
+                        <td>0.642972946</td>
+                        <td>250</td>
+                        <td>36</td>
+                        <td>114.1520359</td>
+                    </tr>
+                    <tr>
                         <td>LSTM-GRU</td>
                         <td>0.15191308</td>
                         <td>0.23991394</td>
@@ -753,30 +743,22 @@
                         <td>34</td>
                         <td>177.5106781</td>
                     </tr>
-                <tr>
-                    <td>Bidirectional-LSTM-GRU</td>
-                    <td>0.067635128</td>
-                    <td>0.129869357</td>
-                    <td>250</td>
-                    <td>63</td>
-                    <td>450.9644763</td>
-                </tr>
-                <tr>
-                    <td>SimpleRNN</td>
-                    <td>1.056928001</td>
-                    <td>0.642972946</td>
-                    <td>250</td>
-                    <td>36</td>
-                    <td>114.1520359</td>
-                </tr>
-                <tr>
-                    <th>Total Training Time</th>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>742.62</td>
-                </tr>
+                    <tr>
+                        <td>Bidirectional-LSTM-GRU</td>
+                        <td>0.067635128</td>
+                        <td>0.129869357</td>
+                        <td>250</td>
+                        <td>63</td>
+                        <td>450.9644763</td>
+                    </tr>
+                    <tr>
+                        <th>Total Training Time</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>742.62</td>
+                    </tr>
                 </tbody></table>
 
             <div class="w3-center">
@@ -808,8 +790,8 @@
             <h5>The Simple RNN Network Performed Poorly</h5>
             <p>
                 Although the simple RNN cell networks performed very well in experiments 1 and 2 it performed exceptionally poorly in this experiment.
-                The simple RNN network did 15X worse than the bi-directional lstm-gru network and about 7X worse than the lstm-gru network when compared 
-                based on mean squared error. This is contradictory to the findings of <a href="experiment-2">experiment 2</a> where the simple RNN network 
+                In fact, it performed about 15X worse than the bi-directional LSTM-GRU network and about 7X worse than the LSTM-GRU network when compared 
+                based on mean squared error. This is contradictory to the findings of <a href="#experiment-2">Experiment 2</a> where the simple RNN network 
                 performed just as well or better than the other network types.
             </p>
             <br/>
@@ -822,6 +804,14 @@
                 that they also don't generalize well on small datasets. This experiment shows evidence that although bi-directional networks converge slowly 
                 they are able to learn more complex features from large datasets and generalize that learning better than other network types.
             </p>
+            <br/>
+
+            <h5>Bi-Directional Networks Train Slowly</h5>
+            <p>
+                This was shown in <a href="#experiment-1">Experiment 1</a> but is much more obvious in this experiment. The Bi-Directional network had an 
+                average training time per epoch of 7.14 minutes compared to 5.20 minutes and 3.17 minutes for the LSTM-GRU and simple RNN networks. There is a clear 
+                trade off between training time and accuracy in this experiment and possibly more broadly between these RNN cell types.
+            </p>
         </div>
         <hr>
 
@@ -830,7 +820,8 @@
         <div class="w3-container">
             <h1>Conclusions</h1>
             <p>
-                The purpose of this paper was to explore the efficacy of using recurrent neural networks to make regressions on time series financial data and 
+                The purpose of this report was to explore the efficacy of using recurrent neural networks to make regressions on time series financial data, 
+                compare each recurrent cell type based on their: training times, convergence speeds, and accuracy, and 
                 see if there is an RNN cell type or types that produce superior results for this type of analysis.
             </p>
             <br>
@@ -840,32 +831,33 @@
                 This experiment showed that when training a relatively shallow network on a small dataset all RNN cell types are able to converge. It also led 
                 to some surprising discoveries:
                 <ul>
-                    <li>Bi-Directional networks converge much slower than the networks using other RNN cell types in this task.</li>
+                    <li>Bi-Directional networks converge much slower (at least initially) than the networks using other RNN cell types in this task.</li>
                     <li>Networks using simple RNN cells converge quickly and have the same or better accuracy as all other RNN cell types in this task.</li>
                 </ul>
             </p>
             <br>
 
-            <h5>Model Generalization on a Five Variable Regression (Experiment 2)</h5>
+            <h5>Model Generalization on a Five Variable Sequence Regression (Experiment 2)</h5>
             <p>
-                This experiment was designed to test how each RNN cell type would perform when expected to output a sequence instead of a single value and 
-                when the networks were given much more time to train. This experiment showed the following:
+                This experiment was designed to test how each RNN cell type would perform when: given more training data,
+                given more training time, and how each would converge when expected to output a sequence instead of a single value. 
+                This experiment showed the following:
                 <ul>
                     <li>Bi-Directional networks performed the worst at this task when compared to the other network types.</li>
                     <li>Much like experiment 1, simple RNN networks performed surprisingly well and trained very quickly.</li>
-                    <li>LSTM and GRU networks performed well but this is as expected.</li>
+                    <li>LSTM and GRU networks performed well, but this is as expected.</li>
                 </ul>
-                Once again this experiment surprised me as the simple RNN network did much better than both Bi-Directional networks and was competitive with 
-                both the LSMT and GRU network. My hypothesis is that given: a relatively shallow network size, low amounts of data, and 
+                Once again this experiment was surprising as the simple RNN network did much better than both Bi-Directional networks and was competitive with 
+                both the LSMT and GRU networks. My hypothesis is that given: a relatively shallow network size, low amounts of data, and 
                 the early stopping conditions of this experiment that the Bi-Directional networks either didn't have enough data or time to learn and generalize. 
                 Experiment 3 was created to gain insight on this as the results did not meet my expectations.
             </p>
             <br>
 
-            <h5>Deep Model Generalization on a Seven Variable Regression (Experiment 3)</h5>
+            <h5>Deep Model Generalization on a Seven Variable Sequence Regression (Experiment 3)</h5>
             <p>
                 This experiment was designed to test how the following network types generalized and converged when training on a large dataset and a deeper network 
-                architecture: simple RNNs, LSTM/GRU combinations, and bi-directional LSTM/GRU combinations. This experiment showed drastically different results than 
+                architecture: simple RNNs, LSTM/GRU combinations, and bi-directional LSTM/GRU combinations. This experiment showed drastically different results from 
                 the previous two experiments:
                 <ul>
                     <li>Bi-Directional networks performed far better than any other network type.</li>
@@ -873,20 +865,21 @@
                 </ul>
                 These results were more in line with my expectations but did not necessarily agree with the previous two experiments. My hypothesis is that 
                 in order to take advantage of the benefits of Bi-Directional and/or memory cells like GRU and LSTM, the network must be sufficiently deep and/or be 
-                trained with a large amount of data. This is show cased by the staggering differences in results from experiment 1 and 2 to experiment 3.
+                trained with a large amount of data. This is shown by the staggering differences in results from experiment 1 and 2 to experiment 3.
             </p>
             <br>
 
             <h5>Experimental Results</h5>
             <p>
-                When training the networks to take as input the last 180 minutes of data and output the next 30 minutes of closing price on a large data set I was 
+                When training the networks to take as input the last 180 minutes of data and output the next 30 minutes of closing price, the best networks 
+                produced in this report were  
                 able to achieve a mean squared error (MSE) of 0.003008778 when using a small dataset and 0.067635128 when using an extremely large dataset.
             </p>
             <p>
                 In the <a href="#related-work">Related Work</a> section of the paper it was shown that authors War Ahmed and Mehrdad Bahador 
                 were able to achieve a MSE of 0.00056 when predicting next day closing price of the S&P 500 from an input of the last 22 days of S&P price 
                 and volume data. Although these results are not comparable at all, it is interesting to note that their MSE of 
-                0.00056 * 30 days = 0.0168, which is between the MSEs of the two best networks I was able to produce.
+                0.00056 * 30 days = 0.0168, which is between the MSEs of the two best networks produced as a result of this report.
             </p>
             <br>
 
@@ -903,8 +896,8 @@
 
             <h5>Final Thoughts</h5>
             <p>
-                These experiments were first and foremost opportunities for me to learn more about deep learning and recurrent neural networks in specific. 
-                Although they were not exhaustive and may contain flaws they provided me with a great opportunity to learn at the time of their creation, and 
+                These experiments were first and foremost opportunities for me to learn more about deep learning and recurrent neural networks specifically. 
+                Although they were not exhaustive and may contain flaws, the experiments provided me with a great opportunity to learn at the time of their creation and 
                 for that I'm thankful.
             </p>
             <p>
@@ -922,6 +915,7 @@
                     </li>
                     <li>One size does not fit all. As shown through my experiments there is clearly not one cell type that works best in all sitautions.
                         Try things out and see what works for your dataset and model architecture.</li>
+                    <li>There are many RNN variants not explored in this report and many more deep learning models. Experiment with what works best for you.</li>
                 </ul>
             </p>
             <br>
@@ -935,7 +929,7 @@
 
         <div class="w3-container">
             <h1>Acknowledgements</h1>
-            <p><a href="https://www.youtube.com/user/sentdex">Sentdex</a> - I must put out a huge thank you to this user from YouTube for their 
+            <p><a href="https://www.youtube.com/user/sentdex">Sentdex</a> - A huge thank you goes out to this user from YouTube for their 
                 comprehensive and well thought out tutorials on deep learning. Experiment 1 used a bit of code from Sentdex and I wouldn't have been able to make 
                 nearly as much progress in this project without their various tutorials.
             </p>
@@ -957,9 +951,6 @@
 
         <div class="w3-container">
             <h1>References</h1>
-            <p>
-              <a href="https://arxiv.org/abs/1710.05381">A systematic study of the class imbalance problem in convolutional neural networks</a> - Mateusz Buda, Atsuto Maki, and Maciej A. Mazurowski
-            </p>
             <p>
                 <a href="http://www.diva-portal.org/smash/get/diva2:1213449/FULLTEXT01.pdf">The accuracy of the LSTM model for predicting the S&P 500 index 
                     and the difference between prediction and backtesting </a> - War Ahmed and Mehrdad Bahador
